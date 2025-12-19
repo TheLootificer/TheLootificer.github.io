@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quantum Radio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="/radio/manifest.json">
+  <meta property="og:title" content="Quantum Radio" />
+  <meta property="og:description" content="You're listening to Quantum Radio!" />
+  <meta property="og:url" content="https://ashhaven.com/" />
+  <meta property="og:image" content="https://ashhaven.com/images/logo.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="AshHaven" />
+  <meta name="theme-color" content="#33ffff" />
+  <style>
+    body {
+      background-color: #333;
+      color: #f8ca05;
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .radio-container {
+      background: radial-gradient(circle at top left, #9458a8, #4c0c54);
+      border: 6px solid #8a3687;
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: 0 0 20px rgba(51,255,255);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+    }
+
+    .radio-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #33ffff;
+      text-shadow: 0 0 5px #11bbdd;
+    }
+
+    .dial:after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      height: 20px;
+      background: #33ffff;
+      top: 10px;
+      left: 28px;
+    }
+
+    #volumeSlider {
+      width: 80%;
+      margin: 1rem 0;
+    }
+
+    #audio-player {
+      display: none;
+    }
+
+    .led {
+      width: 14px;
+      height: 14px;
+      background: red;
+      border-radius: 50%;
+      margin: 0.5rem auto;
+      box-shadow: 0 0 8px red;
+    }
+
+    .power-switch {
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .power-button {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid #33ffff;
+      background: #8a3687;
+      color: #33ffff;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 0 10px #33ffff;
+      transition: all 0.2s ease;
+    }
+
+    .power-button:active {
+      transform: scale(0.95);
+      box-shadow: 0 0 5px #33ffff;
+    }
+  </style>
+</head>
+<body>
+  <div class="radio-container">
+    <div class="radio-title">📻 Quantum Radio</div>
+    <div id="power-led" class="led"></div>
+    <div id="now-playing" style="margin-top: 1rem; font-size: 1rem; color: #eb6bb5;"></div>
+    <input type="range" id="volumeSlider" min="0" max="1.5" step="0.015" value="0.75">
+    <div class="power-switch">
+      <button id="powerButton" class="power-button">⏻</button>
+    </div>
+    <div style="margin-top:1rem; text-align:center; color:#33ffff; font-size:1rem;">
+      <p>Optional Toggles:</p>
+    </div>
+    <div style="margin-top:1rem; display: flex; justify-content: center; gap: 1rem;">
+      <label style="font-size:1rem; color:#33ffff;">
+        <input type="checkbox" id="immersiveMode" style="margin-right:0.5rem;"
+          title="Immersive: Skips host voice lines and intro for uninterrupted music.">Immersive
+      </label>
+      <label style="font-size:1rem; color:#33ffff;">
+        <input type="checkbox" id="falloutMode" style="margin-right:0.5rem;"
+          title="Fallout Only: Only plays songs from the Fallout Games and Show.">Fallout Only
+      </label>
+      <label style="font-size:1rem; color:#33ffff;">
+        <input type="checkbox" id="adFreeMode" style="margin-right:0.5rem;"
+          title="Ad Free: Skips ads and radio plays, only music.">Ad Free
+      </label>
+    </div>
+    <audio id="audio-player" controls></audio>
+  </div>
+  <script src="scripts.js"></script>
+  <script>
+    const powerButton = document.getElementById('powerButton');
+    const powerLed = document.getElementById('power-led');
+    let isPoweredOn = false;
+
+    powerButton.addEventListener('click', () => {
+      isPoweredOn = !isPoweredOn;
+      if (isPoweredOn) {
+        powerLed.style.background = 'green';
+        powerLed.style.boxShadow = '0 0 8px green';
+        if (typeof powerOn === 'function') powerOn();
+      } else {
+        powerLed.style.background = 'red';
+        powerLed.style.boxShadow = '0 0 8px red';
+        if (typeof powerOff === 'function') powerOff();
+      }
+    });
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/radio/service-worker.js')
+        .then(() => console.log('Service Worker Registered'))
+        .catch((error) => console.error('Service Worker Registration Failed:', error));
+    }
+  </script>
+</body>
+</html>

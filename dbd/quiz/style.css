@@ -1,0 +1,233 @@
+/* Inherit main site styles, but add specific quiz overrides */
+
+/* Quiz Container matching the "Post" style */
+#quiz-container {
+    text-align: center;
+    padding: 20px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: flex-start;  Allow it to grow naturally */
+}
+
+/* Typography Overrides */
+.question-text {
+    font-family: HeaderFont, serif;
+    /* Match site headers */
+    font-size: 2rem;
+    margin-bottom: 40px;
+    color: #242424;
+    /* Dark text on cream background */
+    border-bottom: 2px solid #8d1ed2;
+    /* AshHaven purple underline */
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+/* Question Progress */
+#quiz-progress {
+    font-family: BodyFont;
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+/* Options Layout */
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 600px;
+    /* Slightly wider */
+}
+
+/* Button Styling - The AshHaven Interaction */
+.quiz-btn {
+    padding: 15px 25px;
+    font-size: 1.2rem;
+    font-family: BodyFont, serif;
+    background-color: transparent;
+    color: #242424;
+    border: 2px solid #242424;
+    border-radius: 4px;
+    /* Slightly squarer, more Victorian */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.quiz-btn:hover {
+    background-color: #242424;
+    color: #fff;
+    /* Invert on hover */
+    /* border-color: #8d1ed2; Optional: purple border on hover? */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.quiz-btn:active {
+    transform: translateY(0);
+}
+
+/* Previous Button specific style */
+.prev-btn {
+    margin-top: 30px;
+    border: 1px dashed #666;
+    color: #666;
+    font-size: 1rem;
+    padding: 10px 20px;
+}
+
+.prev-btn:hover {
+    background-color: #e3deca;
+    /* Keep darker cream bg */
+    border-color: #242424;
+    color: #242424;
+}
+
+/* --- Results Section --- */
+
+.results-header {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    width: 100%;
+}
+
+.filter-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 8px 15px;
+    font-size: 1rem;
+    border: 1px solid #8d1ed2;
+    background: transparent;
+    color: #8d1ed2;
+    cursor: pointer;
+    border-radius: 20px;
+    /* Pill shape for toggles */
+    transition: all 0.2s;
+}
+
+.filter-btn.active {
+    background: #8d1ed2;
+    color: #fff;
+}
+
+.killer-list {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    max-width: 800px;
+}
+
+.result-item {
+    background-color: #f4f0e0;
+    /* Slightly lighter than container */
+    margin-bottom: 25px;
+    padding: 25px;
+    border-radius: 8px;
+    border-left: 6px solid #8d1ed2;
+    /* Purple accent */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    position: relative;
+    transition: transform 0.2s;
+}
+
+.result-item:hover {
+    transform: scale(1.01);
+}
+
+.result-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.killer-name {
+    margin: 0;
+    font-family: HeaderFont;
+    font-size: 2rem;
+    color: #242424;
+}
+
+.killer-score {
+    font-weight: bold;
+    color: #8d1ed2;
+    font-size: 1.5rem;
+    font-family: HeaderFont;
+}
+
+.result-content {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Image styling if we use the backgrounds as thumbnails */
+.killer-thumb {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #8d1ed2;
+    flex-shrink: 0;
+}
+
+.killer-desc {
+    flex: 1;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+.tags-row {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.tag {
+    font-size: 0.8rem;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tag-dlc {
+    background-color: #3498db;
+    color: white;
+}
+
+.tag-licensed {
+    background-color: #f1c40f;
+    color: black;
+}
+
+.wiki-link {
+    margin-left: auto;
+    color: #8d1ed2;
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 1px dotted #8d1ed2;
+}
+
+.wiki-link:hover {
+    color: #5e148c;
+    border-bottom: 1px solid #5e148c;
+}
