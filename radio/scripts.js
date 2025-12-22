@@ -377,12 +377,100 @@ function powerOff() {
   }
 }
 
+
+
+
 function toggleRadio() {
   if (radioOn) {
     powerOff();
-    // radioOn = false; // already set in powerOff
   } else {
     powerOn();
-    // radioOn = true; // already set in powerOn
   }
 }
+
+// PWA Offline Download Logic
+const allAssets = [
+  ...songs.map(s => songsFolder + s),
+  ...ads.map(a => adsFolder + a),
+  ...plays.map(p => playsFolder + p),
+  // Add host voice lines if you have a list, otherwise they will be cached when played.
+  // Ideally, if you want full offline, you should list all voice lines too.
+  // For now, let's auto-cache what we know.
+  introFile
+];
+
+// Add Host lines we know about
+Object.values(preVoiceLines).forEach(lines => {
+  lines.forEach(line => allAssets.push(hostFolder + line));
+});
+Object.values(postVoiceLines).forEach(lines => {
+  lines.forEach(line => allAssets.push(hostFolder + line));
+});
+
+
+async function checkOfflineReady() {
+  if (!('caches' in window)) return;
+
+  const cache = await caches.open('quantum-radio-v2');
+  const keys = await cache.keys();
+
+  // Simple heuristic: if we have a significant number of items cached, we assume we are "ready enough" or totally ready.
+  // Or we could check specific critical files. 
+  // Since the user might not download everything, we can check if the basic assets + at least one song exists.
+
+  const cachedUrls = keys.map(req => new URL(req.url).pathname);
+
+  // Check if *all* assets are cached is expensive if the list is huge, but let's try a simpler check first.
+  // For the UI "Offline Ready" badge, we might just rely on a flag in localStorage or check a few random samples.
+
+  const isDownloaded = localStorage.getItem('offlineLibraryDownloaded') === 'true';
+  const offlineReadyDiv = document.getElementById('offlineReady');
+  const downloadBtn = document.getElementById('downloadBtn');
+
+  if (isDownloaded || cachedUrls.length > 300) { // arbitrary threshold for "mostly downloaded"
+    if (offlineReadyDiv) offlineReadyDiv.style.display = 'block';
+    if (downloadBtn) downloadBtn.style.display = 'none';
+  }
+}
+
+const downloadBtn = document.getElementById('downloadBtn');
+if (downloadBtn) {
+  downloadBtn.addEventListener('click', async () => {
+    const progressContainer = document.getElementById('downloadProgressContainer');
+    const progressBar = document.getElementById('downloadProgressBar');
+    const statusText = document.getElementById('downloadStatus');
+    const offlineReadyDiv = document.getElementById('offlineReady');
+
+    downloadBtn.disabled = true;
+    progressContainer.style.display = 'block';
+
+    let completed = 0;
+    const total = allAssets.length;
+
+    // Batch requests to avoid choking the network
+    const BATCH_SIZE = 5;
+
+    for (let i = 0; i < total; i += BATCH_SIZE) {
+      const batch = allAssets.slice(i, i + BATCH_SIZE);
+      await Promise.all(batch.map(async (url) => {
+        try {
+          await fetch(url); // Trigger SW cache
+          completed++;
+          const percent = Math.round((completed / total) * 100);
+          progressBar.style.width = `${percent}%`;
+          statusText.textContent = `Downloading ${completed}/${total}...`;
+        } catch (e) {
+          console.error('Failed to cache:', url, e);
+        }
+      }));
+    }
+
+    localStorage.setItem('offlineLibraryDownloaded', 'true');
+    statusText.textContent = 'Download Complete!';
+    downloadBtn.style.display = 'none';
+    offlineReadyDiv.style.display = 'block';
+  });
+}
+
+// Initial check
+checkOfflineReady();
