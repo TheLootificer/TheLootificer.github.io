@@ -295,9 +295,15 @@ let initialized = false;
 function initializeRadio() {
   if (!initialized) {
     initialized = true;
-    playIntroduction();
+    if (loadState()) {
+      // If state loaded, we are ready to play when powered on
+      // We do NOT play automatically here, powerOn handles the resume
+    } else {
+      playIntroduction();
+    }
   }
 }
+
 
 function powerOn() {
   if (radioOn) return;
@@ -386,3 +392,45 @@ function toggleRadio() {
     // radioOn = true; // already set in powerOn
   }
 }
+
+// Persistence Logic
+
+function saveState() {
+  const state = {
+    playedSongs: playedSongs,
+    currentSongCount: currentSongCount,
+    lastSongPlayed: lastSongPlayed,
+    currentSrc: audioElement.src,
+    currentTime: audioElement.currentTime,
+    nowPlayingText: document.getElementById('now-playing').textContent
+  };
+  localStorage.setItem('radioState', JSON.stringify(state));
+}
+
+window.addEventListener('beforeunload', saveState);
+
+function loadState() {
+  const savedState = localStorage.getItem('radioState');
+  if (savedState) {
+    const state = JSON.parse(savedState);
+    playedSongs = state.playedSongs || [];
+    currentSongCount = state.currentSongCount || 0;
+    lastSongPlayed = state.lastSongPlayed || '';
+    if (state.currentSrc) {
+      audioElement.src = state.currentSrc;
+      audioElement.currentTime = state.currentTime || 0;
+    }
+    if (state.nowPlayingText) {
+      updateNowPlaying(state.nowPlayingText);
+    }
+    return true; // State loaded
+  }
+  return false; // No state found
+}
+
+function resetRadio() {
+  localStorage.removeItem('radioState');
+  localStorage.removeItem('radioVolume'); // Optional: reset volume too? Maybe keep volume.
+  location.reload();
+}
+

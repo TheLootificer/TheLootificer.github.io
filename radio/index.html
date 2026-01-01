@@ -100,6 +100,60 @@
       transform: scale(0.95);
       box-shadow: 0 0 5px #33ffff;
     }
+
+    .power-button:active {
+      transform: scale(0.95);
+      box-shadow: 0 0 5px #33ffff;
+    }
+
+    .kofi-link {
+
+      display: inline-block;
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: #eb6bb5;
+      /* Pink to match 'now playing' or secondary accent */
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.3s ease, text-shadow 0.3s ease;
+      border-bottom: 1px dotted #eb6bb5;
+    }
+
+    .kofi-link:hover {
+      opacity: 1;
+      text-shadow: 0 0 5px #eb6bb5;
+      border-bottom: 1px solid #eb6bb5;
+    }
+
+    .reset-button {
+      background: transparent;
+      color: #ff3333;
+      border: 1px solid #ff3333;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.7rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.6;
+      transition: all 0.2s;
+    }
+
+    .reset-button:hover {
+      background: #ff3333;
+      color: #000;
+      opacity: 1;
+      box-shadow: 0 0 8px #ff3333;
+    }
+
+    .footer-controls {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
   </style>
 </head>
 
@@ -130,6 +184,13 @@
       </label>
     </div>
     <audio id="audio-player" controls></audio>
+
+    <div class="footer-controls">
+      <a href="https://ko-fi.com/thelootificer" target="_blank" class="kofi-link" title="Support the station">☕ Buy me a
+        Nuka-Cola</a>
+      <button onclick="resetRadio()" class="reset-button" title="Clear saved data and reload">⚠ System Reset</button>
+    </div>
+
   </div>
   <script src="scripts.js"></script>
   <script>
