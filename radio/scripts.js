@@ -295,8 +295,9 @@ let initialized = false;
 function initializeRadio() {
   if (!initialized) {
     initialized = true;
-    if (loadState()) {
-      // If state loaded, we are ready to play when powered on
+    const stateLoaded = loadState();
+    if (stateLoaded && audioElement.src) {
+      // If state loaded AND we have a source, we are ready to play when powered on
       // We do NOT play automatically here, powerOn handles the resume
     } else {
       playIntroduction();
