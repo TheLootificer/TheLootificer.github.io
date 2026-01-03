@@ -395,7 +395,10 @@ function toggleRadio() {
 
 // Persistence Logic
 
+let isResetting = false;
+
 function saveState() {
+  if (isResetting) return;
   const state = {
     playedSongs: playedSongs,
     currentSongCount: currentSongCount,
@@ -429,8 +432,10 @@ function loadState() {
 }
 
 function resetRadio() {
+  isResetting = true;
   localStorage.removeItem('radioState');
   localStorage.removeItem('radioVolume'); // Optional: reset volume too? Maybe keep volume.
   location.reload();
 }
+
 
