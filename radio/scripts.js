@@ -58,7 +58,7 @@ const musicGain = audioContext.createGain();
 musicGain.gain.value = parseFloat(volumeSlider.value);
 
 const staticGain = audioContext.createGain();
-staticGain.gain.value = 0.0035;
+staticGain.gain.value = 0.00035;
 
 const staticNoise = createWhiteNoise(audioContext);
 staticNoise.connect(staticGain);
@@ -89,7 +89,7 @@ volumeSlider.addEventListener('input', () => {
   musicGain.gain.value = volume;
   voiceGain.gain.value = volume;
   if (radioOn) {
-    staticGain.gain.value = volume * 0.0035;
+    staticGain.gain.value = volume * 0.00035;
   }
   localStorage.setItem('radioVolume', volume);
 });
@@ -311,7 +311,7 @@ function powerOn() {
   radioOn = true;
   audioContext.resume().then(() => {
     const volume = parseFloat(volumeSlider.value);
-    staticGain.gain.value = volume * 0.0035;
+    staticGain.gain.value = volume * 0.00035;
     // Resume static
     // Resume music/audio
     if (audioElement.paused && audioElement.src) {
