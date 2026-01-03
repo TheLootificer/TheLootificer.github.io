@@ -405,14 +405,26 @@ function saveState() {
     lastSongPlayed: lastSongPlayed,
     currentSrc: audioElement.src,
     currentTime: audioElement.currentTime,
-    nowPlayingText: document.getElementById('now-playing').textContent
+    nowPlayingText: document.getElementById('now-playing').textContent,
+    // Modifiers
+    immersiveMode: document.getElementById('immersiveMode')?.checked || false,
+    falloutMode: document.getElementById('falloutMode')?.checked || false,
+    adFreeMode: document.getElementById('adFreeMode')?.checked || false
   };
   localStorage.setItem('radioState', JSON.stringify(state));
 }
 
 window.addEventListener('beforeunload', saveState);
 
+// Add change listeners to checkboxes for immediate saving
+document.getElementById('immersiveMode')?.addEventListener('change', saveState);
+document.getElementById('falloutMode')?.addEventListener('change', saveState);
+document.getElementById('adFreeMode')?.addEventListener('change', saveState);
+// Also load state on page load to restore checkbox UI immediately
+window.addEventListener('load', loadState);
+
 function loadState() {
+
   const savedState = localStorage.getItem('radioState');
   if (savedState) {
     const state = JSON.parse(savedState);
@@ -426,10 +438,22 @@ function loadState() {
     if (state.nowPlayingText) {
       updateNowPlaying(state.nowPlayingText);
     }
+
+    // Restore Modifiers
+    const immersiveCheckbox = document.getElementById('immersiveMode');
+    if (immersiveCheckbox) immersiveCheckbox.checked = state.immersiveMode || false;
+
+    const falloutCheckbox = document.getElementById('falloutMode');
+    if (falloutCheckbox) falloutCheckbox.checked = state.falloutMode || false;
+
+    const adFreeCheckbox = document.getElementById('adFreeMode');
+    if (adFreeCheckbox) adFreeCheckbox.checked = state.adFreeMode || false;
+
     return true; // State loaded
   }
   return false; // No state found
 }
+
 
 function resetRadio() {
   isResetting = true;
