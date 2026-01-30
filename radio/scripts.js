@@ -9,11 +9,11 @@ const ads = Array.from({ length: 44 }, (_, i) => `ad${i + 1}.mp3`);
 const plays = Array.from({ length: 41 }, (_, i) => `play${i + 1}.mp3`);
 
 const preVoiceLines = {
-  'song221.mp3': ['pre_host1.mp3'],
+  'song227.mp3': ['pre_host1.mp3'],
 };
 
 const postVoiceLines = {
-  'song107.mp3': ['host1.mp3'],
+  'song112.mp3': ['host1.mp3'],
 };
 
 let radioOn = false;
