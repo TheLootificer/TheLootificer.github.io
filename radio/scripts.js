@@ -4,16 +4,16 @@ const playsFolder = 'Plays/';
 const hostFolder = 'VoiceLines/';
 const introFile = 'intro.mp3';
 
-const songs = Array.from({ length: 267 }, (_, i) => `song${i + 1}.mp3`);
+const songs = Array.from({ length: 268 }, (_, i) => `song${i + 1}.mp3`);
 const ads = Array.from({ length: 44 }, (_, i) => `ad${i + 1}.mp3`);
 const plays = Array.from({ length: 41 }, (_, i) => `play${i + 1}.mp3`);
 
 const preVoiceLines = {
-  'song220.mp3': ['pre_host1.mp3'],
+  'song221.mp3': ['pre_host1.mp3'],
 };
 
 const postVoiceLines = {
-  'song106.mp3': ['host1.mp3'],
+  'song107.mp3': ['host1.mp3'],
 };
 
 let radioOn = false;

@@ -12,10 +12,9 @@ SCRIPTS_JS = os.path.join(RADIO_DIR, "scripts.js")
 BACKUP_HTML = os.path.join(RADIO_DIR, "backup.html")
 TITLES_JSON = os.path.join(RADIO_DIR, "song_titles.json")
 
-def update_file_text_refs(filepath, start_index, update_max_count=False):
+def update_file_text_refs(filepath, start_index):
     """
     Updates occurrences of songN.mp3 to song(N+1).mp3 in the given text file.
-    Also attempts to update loop limits or array lengths if update_max_count is True.
     """
     if not os.path.exists(filepath):
         print(f"Warning: {filepath} not found. Skipping.")
@@ -35,23 +34,6 @@ def update_file_text_refs(filepath, start_index, update_max_count=False):
         return match.group(0) # No change
 
     new_content = re.sub(r'(song)(\d+)(\.mp3)', ref_replacer, content)
-
-    # 2. Update Max Coounts / Limits if needed
-    # Look for 'length: 263', 'i <= 263', 'length: 261', etc.
-    # We find the HIGHEST number associated with these patterns and increment it.
-    
-    # helper to increment found number
-    def limit_replacer(match):
-        val = int(match.group(1))
-        # only increment if it looks like a max count (e.g. >= start_index or just the max generally)
-        # typically this number is the *total* count, so if we insert a song, total count goes up +1.
-        return f"{match.group(0).replace(str(val), str(val+1))}"
-
-    if update_max_count:
-        # Update 'length: X' (Common in scripts.js)
-        new_content = re.sub(r'length:\s*(\d+)', limit_replacer, new_content)
-        # Update 'i <= X' (Common in backup.html loops)
-        new_content = re.sub(r'i\s*<=\s*(\d+)', limit_replacer, new_content)
 
     if content != new_content:
         with open(filepath, 'w') as f:
@@ -143,7 +125,7 @@ def shift_files(songs_dir, start_index):
 def main():
     parser = argparse.ArgumentParser(description="Shift song files to make space for a new track.")
     parser.add_argument("start_index", type=int, help="The song number you want to free up (e.g. 40). All songs from this number upwards will be shifted +1.")
-    parser.add_argument("-j", "--update-json", action="store_true", help="Also update keys in song_titles.json (Default: False). Use this if you haven't manually updated the JSON yet.")
+    parser.add_argument("--skip-json", action="store_true", help="Skip updating keys in song_titles.json (Use this if you manually updated the JSON).")
     
     args = parser.parse_args()
     
@@ -158,14 +140,14 @@ def main():
         sys.exit(0)
 
     # 1. Update Code References
-    update_file_text_refs(SCRIPTS_JS, args.start_index, update_max_count=True)
-    update_file_text_refs(BACKUP_HTML, args.start_index, update_max_count=True)
+    update_file_text_refs(SCRIPTS_JS, args.start_index)
+    update_file_text_refs(BACKUP_HTML, args.start_index)
 
-    # 2. Update JSON (Optional)
-    if args.update_json:
+    # 2. Update JSON
+    if not args.skip_json:
         update_json_keys(TITLES_JSON, args.start_index)
     else:
-        print("Skipping JSON update (use --update-json to enable).")
+        print("Skipping JSON update (--skip-json used).")
 
     # 3. Rename Files
     shift_files(SONGS_DIR, args.start_index)
