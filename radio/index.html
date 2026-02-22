@@ -154,6 +154,67 @@
       align-items: center;
       gap: 0.5rem;
     }
+
+    /* Filters Dropdown Styles */
+    .filters-dropdown {
+      position: relative;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+
+    .filters-btn {
+      padding: 0.5rem 1rem;
+      background: #8a3687;
+      border: 2px solid #33ffff;
+      border-radius: 12px;
+      color: #33ffff;
+      font-family: inherit;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(51, 255, 255, 0.3);
+      transition: all 0.2s;
+    }
+
+    .filters-btn:hover {
+      box-shadow: 0 0 15px #33ffff;
+      background: #9458a8;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      bottom: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #4c0c54;
+      border: 2px solid #8a3687;
+      border-radius: 12px;
+      padding: 1rem;
+      min-width: 250px;
+      z-index: 100;
+      box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+      flex-direction: column;
+      gap: 0.8rem;
+      text-align: left;
+    }
+
+    .dropdown-content.show {
+      display: flex;
+    }
+
+    .dropdown-content label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #33ffff;
+      font-size: 0.9rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .dropdown-content input[type="checkbox"] {
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -166,22 +227,22 @@
     <div class="power-switch">
       <button id="powerButton" class="power-button">⏻</button>
     </div>
-    <div style="margin-top:1rem; text-align:center; color:#33ffff; font-size:1rem;">
-      <p>Optional Toggles:</p>
-    </div>
-    <div style="margin-top:1rem; display: flex; justify-content: center; gap: 1rem;">
-      <label style="font-size:1rem; color:#33ffff;">
-        <input type="checkbox" id="immersiveMode" style="margin-right:0.5rem;"
-          title="Immersive: Skips host voice lines and intro for uninterrupted music.">Immersive
-      </label>
-      <label style="font-size:1rem; color:#33ffff;">
-        <input type="checkbox" id="falloutMode" style="margin-right:0.5rem;"
-          title="Fallout Only: Only plays songs from the Fallout Games and Show.">Fallout Only
-      </label>
-      <label style="font-size:1rem; color:#33ffff;">
-        <input type="checkbox" id="adFreeMode" style="margin-right:0.5rem;"
-          title="Ad Free: Skips ads and radio plays, only music.">Ad Free
-      </label>
+    <div class="filters-dropdown">
+      <button id="filtersBtn" class="filters-btn">Filters ▾</button>
+      <div id="filtersContent" class="dropdown-content">
+        <label title="Immersive: Skips host voice lines and intro for uninterrupted music.">
+          <input type="checkbox" id="immersiveMode">Immersive
+        </label>
+        <label title="Fallout Only: Only plays songs from the Fallout Games and Show.">
+          <input type="checkbox" id="falloutMode">Fallout Only
+        </label>
+        <label title="Ad Free: Skips ads and radio plays, only music.">
+          <input type="checkbox" id="adFreeMode">Ad Free
+        </label>
+        <label title="Family Friendly: Excludes songs with Nsfw tags.">
+          <input type="checkbox" id="familyFriendlyMode">Family Friendly
+        </label>
+      </div>
     </div>
     <audio id="audio-player" controls></audio>
 

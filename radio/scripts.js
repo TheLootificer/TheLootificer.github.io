@@ -9,11 +9,11 @@ const ads = Array.from({ length: 44 }, (_, i) => `ad${i + 1}.mp3`);
 const plays = Array.from({ length: 41 }, (_, i) => `play${i + 1}.mp3`);
 
 const preVoiceLines = {
-  'song227.mp3': ['pre_host1.mp3'],
+  'song233.mp3': ['pre_host1.mp3'],
 };
 
 const postVoiceLines = {
-  'song112.mp3': ['host1.mp3'],
+  'song118.mp3': ['host1.mp3'],
 };
 
 let radioOn = false;
@@ -125,7 +125,8 @@ function playVoiceLine(song, beforeSong = true, callback = playNext) {
   // Fallout Mode: Only play voice lines for Fallout songs
   if (falloutMode && falloutMode.checked) {
     const info = songTitles[song];
-    if (!(info && info.genre && info.genre.toLowerCase() === 'fallout')) {
+    const genres = info && info.genre ? info.genre.split(',').map(g => g.trim().toLowerCase()) : [];
+    if (!genres.includes('fallout')) {
       setTimeout(callback, 100);
       return;
     }
@@ -164,20 +165,38 @@ function isAdFreeMode() {
   return adFree && adFree.checked;
 }
 
+function isFamilyFriendlyMode() {
+  const familyFriendly = document.getElementById('familyFriendlyMode');
+  return familyFriendly && familyFriendly.checked;
+}
+
 // Example filter for Fallout Mode (songs, ads, plays)
 function getFilteredList(list, type) {
   const falloutMode = document.getElementById('falloutMode');
+  const familyFriendly = isFamilyFriendlyMode();
+
+  let filtered = list;
+
+  if (familyFriendly && type === 'song') {
+    filtered = filtered.filter(item => {
+      const info = songTitles[item];
+      const genres = info && info.genre ? info.genre.split(',').map(g => g.trim().toLowerCase()) : [];
+      return !genres.includes('nsfw');
+    });
+  }
+
   if (falloutMode && falloutMode.checked) {
     if (type === 'song') {
       // Only Fallout genre songs
-      return list.filter(item => {
+      filtered = filtered.filter(item => {
         const info = songTitles[item];
-        return info && info.genre && info.genre.toLowerCase() === 'fallout';
+        const genres = info && info.genre ? info.genre.split(',').map(g => g.trim().toLowerCase()) : [];
+        return genres.includes('fallout');
       });
     }
     // Fallout mode does NOT filter ads or plays anymore
   }
-  return list;
+  return filtered;
 }
 
 // Example usage in your playback logic:
@@ -410,7 +429,8 @@ function saveState() {
     // Modifiers
     immersiveMode: document.getElementById('immersiveMode')?.checked || false,
     falloutMode: document.getElementById('falloutMode')?.checked || false,
-    adFreeMode: document.getElementById('adFreeMode')?.checked || false
+    adFreeMode: document.getElementById('adFreeMode')?.checked || false,
+    familyFriendlyMode: document.getElementById('familyFriendlyMode')?.checked || false
   };
   localStorage.setItem('radioState', JSON.stringify(state));
 }
@@ -421,6 +441,7 @@ window.addEventListener('beforeunload', saveState);
 document.getElementById('immersiveMode')?.addEventListener('change', saveState);
 document.getElementById('falloutMode')?.addEventListener('change', saveState);
 document.getElementById('adFreeMode')?.addEventListener('change', saveState);
+document.getElementById('familyFriendlyMode')?.addEventListener('change', saveState);
 // Also load state on page load to restore checkbox UI immediately
 window.addEventListener('load', loadState);
 
@@ -450,6 +471,9 @@ function loadState() {
     const adFreeCheckbox = document.getElementById('adFreeMode');
     if (adFreeCheckbox) adFreeCheckbox.checked = state.adFreeMode || false;
 
+    const familyFriendlyCheckbox = document.getElementById('familyFriendlyMode');
+    if (familyFriendlyCheckbox) familyFriendlyCheckbox.checked = state.familyFriendlyMode || false;
+
     return true; // State loaded
   }
   return false; // No state found
@@ -461,6 +485,23 @@ function resetRadio() {
   localStorage.removeItem('radioState');
   localStorage.removeItem('radioVolume'); // Optional: reset volume too? Maybe keep volume.
   location.reload();
+}
+
+// Filters Dropdown Toggle
+const filtersBtn = document.getElementById('filtersBtn');
+const filtersContent = document.getElementById('filtersContent');
+
+if (filtersBtn && filtersContent) {
+  filtersBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    filtersContent.classList.toggle('show');
+  });
+
+  window.addEventListener('click', (e) => {
+    if (!filtersBtn.contains(e.target) && !filtersContent.contains(e.target)) {
+      filtersContent.classList.remove('show');
+    }
+  });
 }
 
 
