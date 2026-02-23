@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,26 +14,29 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="AshHaven" />
     <meta name="theme-color" content="#7800ff" />
-<style>
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: #1a1a1a;
-    background-image: url('/images/background.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-}
-</style>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            background-image: url('/images/background.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
 </head>
+
 <body>
-<div class="sidebar" id="sidebar">
-    <ul>
-        <li> <a href="/about/" class="menu-item">About</a></li>
-        <li> <a href="/author/" class="menu-item">About the Author</a></li>
-    </ul>
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li> <a href="/about/" class="menu-item">About</a></li>
+            <li> <a href="/author/" class="menu-item">About the Author</a></li>
+            <li> <a href="/ashhaven/" class="menu-item">AshHaven Roleplay Server</a></li>
+        </ul>
     </div>
     <div class="banner">
         <div class="logo">
@@ -47,32 +51,33 @@ html, body {
     </div>
 
     <div class="container">
-        
-<header class="header">
-    <h1>Warning, The following stories are not suitable for all audiences. Reader discretion is advised.</h1>
-    </header>
-    
-<div class="post">
-    <h2 class="post-title"><a href="post1/" style="color:#8d1ed2;">Medical Malpractice</a></h2>
-        <p>Fallout Themed Writing Commission</p>
-</div>     
 
-<footer class="footer">
-    &copy; <a>2025 AshHaven</a>
-</footer>
-</div>
+        <header class="header">
+            <h1>Warning, The following stories are not suitable for all audiences. Reader discretion is advised.</h1>
+        </header>
 
-<script>
-function toggleSidebar() {
-    var sidebar = document.getElementById('sidebar');
-    sidebar.classList.toggle('open');
-}
+        <div class="post">
+            <h2 class="post-title"><a href="post1/" style="color:#8d1ed2;">Medical Malpractice</a></h2>
+            <p>Fallout Themed Writing Commission</p>
+        </div>
 
-// Dyslexic Font Toggle Functionality
-document.getElementById('toggleFont').addEventListener('click', function() {
-    const contentElement = document.querySelector('.content');
-    contentElement.classList.toggle('dyslexic-font');
-});
-</script>
+        <footer class="footer">
+            &copy; <a>2026 Ashhaven</a>
+        </footer>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // Dyslexic Font Toggle Functionality
+        document.getElementById('toggleFont').addEventListener('click', function () {
+            const contentElement = document.querySelector('.content');
+            contentElement.classList.toggle('dyslexic-font');
+        });
+    </script>
 </body>
+
 </html>
