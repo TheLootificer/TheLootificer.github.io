@@ -22,6 +22,23 @@ let lastSongPlayed = '';
 let playedSongs = [];
 let songTitles = {};
 
+const playSeries = [
+  ['play1.mp3', 'play2.mp3'], // Curse of the Wendigo
+  ['play3.mp3', 'play4.mp3'], // The Beast of Grafton
+  ['play5.mp3', 'play6.mp3'], // Who Goes There?
+  ['play7.mp3', 'play8.mp3'], // Sideshow Snallygaster
+  ['play9.mp3', 'play10.mp3'], // The Mothman Cometh
+  ['play11.mp3', 'play12.mp3', 'play13.mp3', 'play14.mp3', 'play15.mp3', 'play16.mp3'], // Heart of Steel
+  ['play17.mp3', 'play18.mp3', 'play19.mp3', 'play20.mp3'], // Escape from the 42nd Century
+  ['play21.mp3', 'play22.mp3', 'play23.mp3', 'play24.mp3', 'play25.mp3'], // Nuka World Radio Show
+  ['play27.mp3', 'play26.mp3', 'play28.mp3', 'play29.mp3'], // Astounding Awesome Tales
+  ['play30.mp3', 'play31.mp3', 'play32.mp3', 'play33.mp3', 'play34.mp3'], // A Better Life Underground
+  ['play35.mp3', 'play36.mp3', 'play37.mp3', 'play38.mp3', 'play39.mp3', 'play40.mp3', 'play41.mp3'], // Zorbo's Revenge
+];
+
+let currentSeries = null;
+let nextSeriesIndex = 0;
+
 fetch('song_titles.json')
   .then(res => res.json())
   .then(data => songTitles = data);
@@ -231,21 +248,44 @@ function playNext() {
       playNext();
       return;
     }
-    if (Math.random() < 0.2) {
-      let playList = getFilteredList(plays, 'play');
-      nextSource = getRandomItem(playList);
-      // Use adTitles.plays for display
-      const displayTitle = adTitles.plays[nextSource] ? adTitles.plays[nextSource].title : nextSource;
-      updateNowPlaying(`Radio Play: ${displayTitle}`);
-      audioElement.src = playsFolder + nextSource;
+
+    // Logic for selecting next play (Sequential Series)
+    if (currentSeries === null) {
+      // No series in progress. Decide whether to start one (20% chance) or play an ad (80%)
+      if (Math.random() < 0.2) {
+        // Start a new series from the first episode
+        currentSeries = getRandomItem(playSeries);
+        nextSeriesIndex = 0;
+        nextSource = currentSeries[nextSeriesIndex];
+        nextSeriesIndex++;
+
+        const displayTitle = adTitles.plays[nextSource] ? adTitles.plays[nextSource].title : nextSource;
+        updateNowPlaying(`Radio Play: ${displayTitle}`);
+        audioElement.src = playsFolder + nextSource;
+      } else {
+        // Play a regular ad
+        let adList = getFilteredList(ads, 'ad');
+        nextSource = getRandomItem(adList);
+        const displayTitle = adTitles.ads[nextSource] ? adTitles.ads[nextSource].title : nextSource;
+        updateNowPlaying(`Ad: ${displayTitle}`);
+        audioElement.src = adsFolder + nextSource;
+      }
     } else {
-      let adList = getFilteredList(ads, 'ad');
-      nextSource = getRandomItem(adList);
-      // Use adTitles.ads for display
-      const displayTitle = adTitles.ads[nextSource] ? adTitles.ads[nextSource].title : nextSource;
-      updateNowPlaying(`Ad: ${displayTitle}`);
-      audioElement.src = adsFolder + nextSource;
+      // A series is in progress. ALWAYS play the next episode.
+      nextSource = currentSeries[nextSeriesIndex];
+      nextSeriesIndex++;
+
+      const displayTitle = adTitles.plays[nextSource] ? adTitles.plays[nextSource].title : nextSource;
+      updateNowPlaying(`Radio Play (Continued): ${displayTitle}`);
+      audioElement.src = playsFolder + nextSource;
+
+      // If we reached the end of the series, reset it.
+      if (nextSeriesIndex >= currentSeries.length) {
+        currentSeries = null;
+        nextSeriesIndex = 0;
+      }
     }
+
     currentSongCount = 0;
     audioElement.onended = playNext;
     voiceDistortion.disconnect();
@@ -423,6 +463,8 @@ function saveState() {
     playedSongs: playedSongs,
     currentSongCount: currentSongCount,
     lastSongPlayed: lastSongPlayed,
+    currentSeries: currentSeries,
+    nextSeriesIndex: nextSeriesIndex,
     currentSrc: audioElement.src,
     currentTime: audioElement.currentTime,
     nowPlayingText: document.getElementById('now-playing').textContent,
@@ -453,6 +495,8 @@ function loadState() {
     playedSongs = state.playedSongs || [];
     currentSongCount = state.currentSongCount || 0;
     lastSongPlayed = state.lastSongPlayed || '';
+    currentSeries = state.currentSeries || null;
+    nextSeriesIndex = state.nextSeriesIndex || 0;
     if (state.currentSrc) {
       audioElement.src = state.currentSrc;
       audioElement.currentTime = state.currentTime || 0;
