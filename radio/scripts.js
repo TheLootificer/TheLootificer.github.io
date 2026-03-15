@@ -110,7 +110,7 @@ volumeSlider.addEventListener('input', () => {
   musicGain.gain.value = volume;
   voiceGain.gain.value = volume;
   if (radioOn) {
-    staticGain.gain.value = volume * 0.0035;
+    staticGain.gain.value = volume * 0.002;
   }
   localStorage.setItem('radioVolume', volume);
 });
@@ -411,7 +411,7 @@ function powerOn() {
   radioOn = true;
   audioContext.resume().then(() => {
     const volume = parseFloat(volumeSlider.value);
-    staticGain.gain.value = volume * 0.0035;
+    staticGain.gain.value = volume * 0.002;
     // Resume static
     // Resume music/audio
     if (audioElement.paused && audioElement.src) {
