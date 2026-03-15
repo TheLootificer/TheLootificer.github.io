@@ -9,11 +9,15 @@ const ads = Array.from({ length: 44 }, (_, i) => `ad${i + 1}.mp3`);
 const plays = Array.from({ length: 41 }, (_, i) => `play${i + 1}.mp3`);
 
 const preVoiceLines = {
-  'song233.mp3': ['pre_host1.mp3'],
+  'song26.mp3': ['voice4.mp3'],
+  'song54.mp3': ['voice5.mp3'],
+  'song233.mp3': ['voice6.mp3'],
 };
 
 const postVoiceLines = {
-  'song118.mp3': ['host1.mp3'],
+  'song106.mp3': ['voice3.mp3'],
+  'song118.mp3': ['voice1.mp3'],
+  'song177.mp3': ['voice2.mp3'],
 };
 
 let radioOn = false;
@@ -75,7 +79,7 @@ const musicGain = audioContext.createGain();
 musicGain.gain.value = parseFloat(volumeSlider.value);
 
 const staticGain = audioContext.createGain();
-staticGain.gain.value = 0.00035;
+staticGain.gain.value = 0; // Starts off
 
 const staticNoise = createWhiteNoise(audioContext);
 staticNoise.connect(staticGain);
@@ -232,6 +236,17 @@ function playNext() {
     currentSongCount++;
     const displayTitle = songTitles[nextSource] ? songTitles[nextSource].title : nextSource;
     updateNowPlaying(`Now Playing: ${displayTitle}`);
+
+    // Media Session Update
+    const songInfo = songTitles[nextSource] || {};
+    // Fallback parsing if title contains "by"
+    let titleStr = songInfo.title || nextSource;
+    let title = titleStr, artist = "Unknown Artist";
+    if (titleStr.includes(" by ")) {
+      [title, artist] = titleStr.split(" by ");
+    }
+    updateMediaSession(title, artist);
+
     audioElement.src = songsFolder + nextSource;
     audioElement.onended = () => playVoiceLine(nextSource, false);
     voiceDistortion.disconnect();
@@ -261,6 +276,7 @@ function playNext() {
 
         const displayTitle = adTitles.plays[nextSource] ? adTitles.plays[nextSource].title : nextSource;
         updateNowPlaying(`Radio Play: ${displayTitle}`);
+        updateMediaSession(displayTitle, "Enlightened Radio");
         audioElement.src = playsFolder + nextSource;
       } else {
         // Play a regular ad
@@ -268,6 +284,7 @@ function playNext() {
         nextSource = getRandomItem(adList);
         const displayTitle = adTitles.ads[nextSource] ? adTitles.ads[nextSource].title : nextSource;
         updateNowPlaying(`Ad: ${displayTitle}`);
+        updateMediaSession(displayTitle, "Enlightened Radio Sponsor");
         audioElement.src = adsFolder + nextSource;
       }
     } else {
@@ -277,6 +294,7 @@ function playNext() {
 
       const displayTitle = adTitles.plays[nextSource] ? adTitles.plays[nextSource].title : nextSource;
       updateNowPlaying(`Radio Play (Continued): ${displayTitle}`);
+      updateMediaSession(displayTitle, "Enlightened Radio");
       audioElement.src = playsFolder + nextSource;
 
       // If we reached the end of the series, reset it.
@@ -305,7 +323,8 @@ function playIntroduction() {
     playNext();
     return;
   }
-  updateNowPlaying('Welcome to Quantum Radio');
+  updateNowPlaying('Welcome to Enlightened Radio');
+  updateMediaSession('Welcome to Enlightened Radio', "Host");
   audioElement.src = introFile;
   audioElement.onended = playNext;
   bandpass.disconnect();
@@ -323,6 +342,28 @@ function updateNowPlaying(text) {
   if (nowPlayingDisplay) {
     nowPlayingDisplay.textContent = text;
   }
+}
+
+function updateMediaSession(title, artist) {
+  if ('mediaSession' in navigator) {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: title,
+      artist: artist,
+      album: 'Enlightened Radio',
+      artwork: [
+        { src: 'https://ashhaven.com/images/logo.png', sizes: '512x512', type: 'image/png' }
+      ]
+    });
+  }
+}
+
+// Set up Media Session Action Handlers once
+if ('mediaSession' in navigator) {
+  navigator.mediaSession.setActionHandler('play', () => powerOn());
+  navigator.mediaSession.setActionHandler('pause', () => powerOff());
+  navigator.mediaSession.setActionHandler('nexttrack', () => {
+    if (radioOn) playNext();
+  });
 }
 
 function makeDistortionCurve(amount) {
@@ -370,7 +411,7 @@ function powerOn() {
   radioOn = true;
   audioContext.resume().then(() => {
     const volume = parseFloat(volumeSlider.value);
-    staticGain.gain.value = volume * 0.0035;
+    staticGain.gain.value = volume * 0.00035;
     // Resume static
     // Resume music/audio
     if (audioElement.paused && audioElement.src) {
@@ -380,23 +421,34 @@ function powerOn() {
           const songFile = src.split('/').pop();
           const displayTitle = songTitles[songFile] ? songTitles[songFile].title : songFile;
           updateNowPlaying(`Now Playing: ${displayTitle}`);
+
+          let title = displayTitle, artist = "Unknown Artist";
+          if (displayTitle.includes(" by ")) {
+            [title, artist] = displayTitle.split(" by ");
+          }
+          updateMediaSession(title, artist);
+
           audioElement.onended = () => playVoiceLine(songFile, false);
         } else if (src.includes(adsFolder)) {
           const adFile = src.split('/').pop();
           const displayTitle = adTitles.ads[adFile] ? adTitles.ads[adFile].title : adFile;
           updateNowPlaying(`Ad: ${displayTitle}`);
+          updateMediaSession(displayTitle, "Enlightened Radio Sponsor");
           audioElement.onended = playNext;
         } else if (src.includes(playsFolder)) {
           const playFile = src.split('/').pop();
           const displayTitle = adTitles.plays[playFile] ? adTitles.plays[playFile].title : playFile;
           updateNowPlaying(`Radio Play: ${displayTitle}`);
+          updateMediaSession(displayTitle, "Enlightened Radio");
           audioElement.onended = playNext;
         } else if (src.includes(hostFolder)) {
           const hostFile = src.split('/').pop();
           updateNowPlaying(`Host: ${hostFile}`);
+          updateMediaSession(`Host: ${hostFile}`, "Host");
           audioElement.onended = playNext;
         } else if (src.includes(introFile)) {
-          updateNowPlaying('Welcome to Quantum Radio');
+          updateNowPlaying('Welcome to Enlightened Radio');
+          updateMediaSession('Welcome to Enlightened Radio', "Host");
           audioElement.onended = playNext;
         }
       }
@@ -408,14 +460,16 @@ function powerOn() {
     }
     const powerLed = document.getElementById('power-led');
     if (powerLed) {
-      powerLed.style.background = 'limegreen';
-      powerLed.style.boxShadow = '0 0 8px limegreen';
+      powerLed.style.background = '#c77dff';
+      powerLed.style.boxShadow = '0 0 12px #c77dff, 0 0 20px #c77dff';
     }
     const powerButton = document.getElementById('powerButton');
     if (powerButton) {
       powerButton.textContent = '⏻';
-      powerButton.style.background = '#8a3687';
-      powerButton.style.color = '#33ffff';
+      powerButton.style.background = '#240046';
+      powerButton.style.color = '#e0aaff';
+      powerButton.style.borderColor = '#9d4edd';
+      powerButton.style.boxShadow = '0 0 15px rgba(157, 78, 221, 0.8), inset 0 0 8px rgba(157, 78, 221, 0.4)';
       powerButton.title = 'Power';
     }
   });
@@ -431,14 +485,16 @@ function powerOff() {
   // No need to stop staticNoise, just mute via gain
   const powerLed = document.getElementById('power-led');
   if (powerLed) {
-    powerLed.style.background = 'red';
-    powerLed.style.boxShadow = '0 0 8px red';
+    powerLed.style.background = '#222222';
+    powerLed.style.boxShadow = '0 0 8px #000';
   }
   const powerButton = document.getElementById('powerButton');
   if (powerButton) {
     powerButton.textContent = '⏻';
-    powerButton.style.background = '#8a3687';
-    powerButton.style.color = '#33ffff';
+    powerButton.style.background = '#111111';
+    powerButton.style.color = '#7b2cbf';
+    powerButton.style.borderColor = '#3c096c';
+    powerButton.style.boxShadow = '0 0 10px rgba(123, 44, 191, 0.3)';
     powerButton.title = 'Power';
   }
 }

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabletop Combat Simulator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-effects">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+    <div class="container">
+        <header>
+            <h1>Combat Simulator</h1>
+            <p>Roll the dice and let fate decide your combat exchange.</p>
+        </header>
+
+        <main>
+            <div class="combat-panels">
+                <!-- Attacker Panel -->
+                <div class="panel attacker-panel">
+                    <h2>Attacker</h2>
+                    <div class="input-group">
+                        <label for="att-character">Character Class</label>
+                        <select id="att-character">
+                            <option value="custom">Custom</option>
+                            <option value="rogue">Rogue (High Agility)</option>
+                            <option value="knight">Knight (High Defense)</option>
+                            <option value="barbarian" selected>Barbarian (High Damage)</option>
+                            <option value="mage">Mage (Glass Cannon)</option>
+                            <option value="goblin">Goblin (Fodder)</option>
+                        </select>
+                        <div class="select-arrow"></div>
+                    </div>
+                    <div class="input-group">
+                        <label for="att-agility">Agility Modifier</label>
+                        <input type="number" id="att-agility" value="3">
+                    </div>
+                    <div class="input-group">
+                        <label for="att-damage">Base Damage</label>
+                        <input type="number" id="att-damage" value="12">
+                    </div>
+                </div>
+
+                <!-- VS Badge -->
+                <div class="vs-badge">VS</div>
+
+                <!-- Defender Panel -->
+                <div class="panel defender-panel">
+                    <h2>Defender</h2>
+                    <div class="input-group">
+                        <label for="def-character">Character Class</label>
+                        <select id="def-character">
+                            <option value="custom">Custom</option>
+                            <option value="rogue">Rogue (High Agility)</option>
+                            <option value="knight" selected>Knight (High Defense)</option>
+                            <option value="barbarian">Barbarian (High Damage)</option>
+                            <option value="mage">Mage (Glass Cannon)</option>
+                            <option value="goblin">Goblin (Fodder)</option>
+                        </select>
+                        <div class="select-arrow"></div>
+                    </div>
+                    <div class="input-group">
+                        <label for="def-agility">Agility Modifier</label>
+                        <input type="number" id="def-agility" value="2">
+                    </div>
+                    <div class="input-group">
+                        <label for="def-base">Defense Value</label>
+                        <input type="number" id="def-base" value="8">
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-section">
+                <button id="roll-btn" class="glow-button">Simulate Round</button>
+            </div>
+
+            <div class="combat-log" id="combat-log">
+                <div class="log-placeholder">Battle logs will appear here...</div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,11 +1,11 @@
 {
-  "name": "Quantum Radio",
-  "short_name": "QRadio",
+  "name": "Enlightened Radio",
+  "short_name": "ERadio",
   "start_url": "/radio/index.html",
   "display": "standalone",
   "background_color": "#333",
   "theme_color": "#33ffff",
-  "description": "You're listening to Quantum Radio!",
+  "description": "You're listening to Enlightened Radio!",
   "icons": [
     {
       "src": "/images/icon-192x192.png",
