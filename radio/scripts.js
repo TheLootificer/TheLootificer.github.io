@@ -110,7 +110,9 @@ volumeSlider.addEventListener('input', () => {
   musicGain.gain.value = volume;
   voiceGain.gain.value = volume;
   if (radioOn) {
-    staticGain.gain.value = volume * 0.002;
+    const baseStatic = 0.001;
+    const dynamicStatic = 0.0015;
+    staticGain.gain.value = (baseStatic + dynamicStatic * Math.sqrt(volume)) * (1 - volume * 0.3);
   }
   localStorage.setItem('radioVolume', volume);
 });
@@ -411,7 +413,9 @@ function powerOn() {
   radioOn = true;
   audioContext.resume().then(() => {
     const volume = parseFloat(volumeSlider.value);
-    staticGain.gain.value = volume * 0.002;
+    const baseStatic = 0.001;
+    const dynamicStatic = 0.0015;
+    staticGain.gain.value = (baseStatic + dynamicStatic * Math.sqrt(volume)) * (1 - volume * 0.3);
     // Resume static
     // Resume music/audio
     if (audioElement.paused && audioElement.src) {
