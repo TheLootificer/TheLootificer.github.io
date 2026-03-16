@@ -231,8 +231,10 @@ function fillQueue() {
       
       const displayTitle = songTitles[nextSong] ? songTitles[nextSong].title : nextSong;
       let title = displayTitle, artist = "Unknown Artist";
-      if (displayTitle.includes(" by ")) {
-        [title, artist] = displayTitle.split(" by ");
+      const lastByIndex = displayTitle.lastIndexOf(" by ");
+      if (lastByIndex !== -1) {
+        title = displayTitle.substring(0, lastByIndex);
+        artist = displayTitle.substring(lastByIndex + 4);
       }
       
       if (shouldPlayVoiceLine(nextSong)) {
@@ -496,8 +498,10 @@ function powerOn() {
           updateNowPlaying(`Now Playing: ${displayTitle}`);
 
           let title = displayTitle, artist = "Unknown Artist";
-          if (displayTitle.includes(" by ")) {
-            [title, artist] = displayTitle.split(" by ");
+          const lastByIndex = displayTitle.lastIndexOf(" by ");
+          if (lastByIndex !== -1) {
+            title = displayTitle.substring(0, lastByIndex);
+            artist = displayTitle.substring(lastByIndex + 4);
           }
           updateMediaSession(title, artist);
 
