@@ -117,9 +117,7 @@ volumeSlider.addEventListener('input', () => {
   localStorage.setItem('radioVolume', volume);
 });
 
-audioElement.addEventListener('ended', () => {
-  if (isHost) playNext();
-});
+// Removed stray isHost reference
 
 window.addEventListener('click', () => {
   if (audioContext.state === 'suspended') {
@@ -138,39 +136,32 @@ function getRandomItem(array) {
   return array[randomIndex];
 }
 
-function playVoiceLine(song, beforeSong = true, callback = playNext) {
-  const immersiveMode = document.getElementById('immersiveMode');
-  const falloutMode = document.getElementById('falloutMode');
-  if (immersiveMode && immersiveMode.checked) {
-    setTimeout(callback, 100);
-    return;
+let mediaQueue = [];
+
+function clearQueue() {
+  mediaQueue.forEach(item => {
+    if (item.preloader) item.preloader.src = '';
+  });
+  mediaQueue = [];
+}
+
+function handleModifierToggle() {
+  saveState();
+  if (radioOn) {
+    clearQueue();
+    // Fill it immediately so next track evaluates new criteria
+    fillQueue(); 
   }
-  // Fallout Mode: Only play voice lines for Fallout songs
-  if (falloutMode && falloutMode.checked) {
+}
+
+function shouldPlayVoiceLine(song) {
+  if (isImmersiveMode()) return false;
+  if (isFalloutMode()) {
     const info = songTitles[song];
     const genres = info && info.genre ? info.genre.split(',').map(g => g.trim().toLowerCase()) : [];
-    if (!genres.includes('fallout')) {
-      setTimeout(callback, 100);
-      return;
-    }
+    if (!genres.includes('fallout')) return false;
   }
-  const lines = beforeSong ? preVoiceLines[song] || [] : postVoiceLines[song] || [];
-  if (lines.length > 0) {
-    const nextLine = getRandomItem(lines);
-    updateNowPlaying(`Host: ${nextLine}`);
-    audioElement.src = hostFolder + nextLine;
-    audioElement.onended = callback;
-    bandpass.disconnect();
-    distortion.disconnect();
-    musicGain.disconnect();
-    voiceDistortion.disconnect();
-    voiceGain.disconnect();
-    voiceDistortion.connect(voiceGain);
-    voiceGain.connect(audioContext.destination);
-    audioElement.play().catch(() => { });
-  } else {
-    setTimeout(callback, 100);
-  }
+  return true;
 }
 
 function isImmersiveMode() {
@@ -222,99 +213,175 @@ function getFilteredList(list, type) {
   return filtered;
 }
 
-// Example usage in your playback logic:
-function playNext() {
-  if (!radioOn) return;
-  let nextSource;
-  if (currentSongCount < 2) {
-    let unplayedSongs = getFilteredList(songs.filter(song => !playedSongs.includes(song)), 'song');
-    if (unplayedSongs.length === 0) {
-      playedSongs = [];
-      unplayedSongs = getFilteredList([...songs], 'song');
-    }
-    nextSource = getRandomItem(unplayedSongs);
-    lastSongPlayed = nextSource;
-    playedSongs.push(nextSource);
-    currentSongCount++;
-    const displayTitle = songTitles[nextSource] ? songTitles[nextSource].title : nextSource;
-    updateNowPlaying(`Now Playing: ${displayTitle}`);
-
-    // Media Session Update
-    const songInfo = songTitles[nextSource] || {};
-    // Fallback parsing if title contains "by"
-    let titleStr = songInfo.title || nextSource;
-    let title = titleStr, artist = "Unknown Artist";
-    if (titleStr.includes(" by ")) {
-      [title, artist] = titleStr.split(" by ");
-    }
-    updateMediaSession(title, artist);
-
-    audioElement.src = songsFolder + nextSource;
-    audioElement.onended = () => playVoiceLine(nextSource, false);
-    voiceDistortion.disconnect();
-    voiceGain.disconnect();
-    bandpass.connect(distortion);
-    distortion.connect(musicGain);
-    musicGain.connect(audioContext.destination);
-    playVoiceLine(nextSource, true, () => {
-      audioElement.play().catch(() => { });
-    });
-  } else {
-    if (isAdFreeMode()) {
-      currentSongCount = 0;
-      playNext();
-      return;
-    }
-
-    // Logic for selecting next play (Sequential Series)
-    if (currentSeries === null) {
-      // No series in progress. Decide whether to start one (20% chance) or play an ad (80%)
-      if (Math.random() < 0.2) {
-        // Start a new series from the first episode
-        currentSeries = getRandomItem(playSeries);
-        nextSeriesIndex = 0;
-        nextSource = currentSeries[nextSeriesIndex];
-        nextSeriesIndex++;
-
-        const displayTitle = adTitles.plays[nextSource] ? adTitles.plays[nextSource].title : nextSource;
-        updateNowPlaying(`Radio Play: ${displayTitle}`);
-        updateMediaSession(displayTitle, "Enlightened Radio");
-        audioElement.src = playsFolder + nextSource;
-      } else {
-        // Play a regular ad
-        let adList = getFilteredList(ads, 'ad');
-        nextSource = getRandomItem(adList);
-        const displayTitle = adTitles.ads[nextSource] ? adTitles.ads[nextSource].title : nextSource;
-        updateNowPlaying(`Ad: ${displayTitle}`);
-        updateMediaSession(displayTitle, "Enlightened Radio Sponsor");
-        audioElement.src = adsFolder + nextSource;
+// Pre-generate logic for continuous buffering
+function fillQueue() {
+  while (mediaQueue.length < 2) {
+    if (currentSongCount < 2) {
+      let unplayedSongs = getFilteredList(songs.filter(song => !playedSongs.includes(song)), 'song');
+      if (unplayedSongs.length === 0) {
+        playedSongs = [];
+        unplayedSongs = getFilteredList([...songs], 'song');
+      }
+      if (unplayedSongs.length === 0) break; 
+      
+      let nextSong = getRandomItem(unplayedSongs);
+      lastSongPlayed = nextSong;
+      playedSongs.push(nextSong);
+      currentSongCount++;
+      
+      const displayTitle = songTitles[nextSong] ? songTitles[nextSong].title : nextSong;
+      let title = displayTitle, artist = "Unknown Artist";
+      if (displayTitle.includes(" by ")) {
+        [title, artist] = displayTitle.split(" by ");
+      }
+      
+      if (shouldPlayVoiceLine(nextSong)) {
+        let preLines = preVoiceLines[nextSong] || [];
+        if (preLines.length > 0) {
+          let line = getRandomItem(preLines);
+          mediaQueue.push({
+            url: hostFolder + line,
+            type: 'voice',
+            displayTitle: `Host: ${line}`,
+            mediaTitle: `Host: ${line}`,
+            mediaArtist: 'Host',
+            originalFile: line
+          });
+        }
+      }
+      
+      mediaQueue.push({
+        url: songsFolder + nextSong,
+        type: 'song',
+        displayTitle: `Now Playing: ${displayTitle}`,
+        mediaTitle: title,
+        mediaArtist: artist,
+        originalFile: nextSong
+      });
+      
+      if (shouldPlayVoiceLine(nextSong)) {
+        let postLines = postVoiceLines[nextSong] || [];
+        if (postLines.length > 0) {
+          let line = getRandomItem(postLines);
+          mediaQueue.push({
+            url: hostFolder + line,
+            type: 'voice',
+            displayTitle: `Host: ${line}`,
+            mediaTitle: `Host: ${line}`,
+            mediaArtist: 'Host',
+            originalFile: line
+          });
+        }
       }
     } else {
-      // A series is in progress. ALWAYS play the next episode.
-      nextSource = currentSeries[nextSeriesIndex];
-      nextSeriesIndex++;
-
-      const displayTitle = adTitles.plays[nextSource] ? adTitles.plays[nextSource].title : nextSource;
-      updateNowPlaying(`Radio Play (Continued): ${displayTitle}`);
-      updateMediaSession(displayTitle, "Enlightened Radio");
-      audioElement.src = playsFolder + nextSource;
-
-      // If we reached the end of the series, reset it.
-      if (nextSeriesIndex >= currentSeries.length) {
-        currentSeries = null;
-        nextSeriesIndex = 0;
+      if (isAdFreeMode()) {
+        currentSongCount = 0;
+        continue;
       }
+      
+      let nextSource = null;
+      let type = '';
+      let dTitle = '';
+      
+      if (currentSeries === null) {
+        if (Math.random() < 0.2) {
+          currentSeries = getRandomItem(playSeries);
+          nextSeriesIndex = 0;
+          nextSource = currentSeries[nextSeriesIndex];
+          nextSeriesIndex++;
+          type = 'play';
+        } else {
+          let adList = getFilteredList(ads, 'ad');
+          if (adList.length > 0) {
+            nextSource = getRandomItem(adList);
+            type = 'ad';
+          }
+        }
+      } else {
+        nextSource = currentSeries[nextSeriesIndex];
+        nextSeriesIndex++;
+        type = 'play';
+        if (nextSeriesIndex >= currentSeries.length) {
+          currentSeries = null;
+          nextSeriesIndex = 0;
+        }
+      }
+      
+      if (!nextSource) {
+        currentSongCount = 0;
+        continue;
+      }
+      
+      if (type === 'play') {
+        dTitle = adTitles.plays[nextSource] ? adTitles.plays[nextSource].title : nextSource;
+        mediaQueue.push({
+          url: playsFolder + nextSource,
+          type: 'play',
+          displayTitle: `Radio Play: ${dTitle}`,
+          mediaTitle: dTitle,
+          mediaArtist: "Enlightened Radio",
+          originalFile: nextSource
+        });
+      } else if (type === 'ad') {
+        dTitle = adTitles.ads[nextSource] ? adTitles.ads[nextSource].title : nextSource;
+        mediaQueue.push({
+          url: adsFolder + nextSource,
+          type: 'ad',
+          displayTitle: `Ad: ${dTitle}`,
+          mediaTitle: dTitle,
+          mediaArtist: "Enlightened Radio Sponsor",
+          originalFile: nextSource
+        });
+      }
+      currentSongCount = 0;
     }
+  }
+  
+  // Trigger eager preload using HTML5 Audio element caching
+  mediaQueue.forEach(item => {
+    if (!item.preloader) {
+      item.preloader = new Audio();
+      item.preloader.preload = 'auto'; // Will aggressively fetch the audio file into memory/disk cache 
+      item.preloader.src = item.url;
+    }
+  });
+}
 
-    currentSongCount = 0;
-    audioElement.onended = playNext;
+function playFromQueue() {
+  if (!radioOn) return;
+  fillQueue(); 
+  
+  if (mediaQueue.length === 0) {
+    setTimeout(playFromQueue, 1000);
+    return;
+  }
+  
+  const nextItem = mediaQueue.shift();
+  fillQueue(); // Trigger buffer of the next media
+  
+  updateNowPlaying(nextItem.displayTitle);
+  updateMediaSession(nextItem.mediaTitle, nextItem.mediaArtist);
+  
+  audioElement.src = nextItem.url;
+  audioElement.onended = playFromQueue;
+  
+  if (nextItem.type === 'voice' || nextItem.type === 'intro') {
+    bandpass.disconnect();
+    distortion.disconnect();
+    musicGain.disconnect();
+    voiceDistortion.disconnect();
+    voiceGain.disconnect();
+    voiceDistortion.connect(voiceGain);
+    voiceGain.connect(audioContext.destination);
+  } else {
     voiceDistortion.disconnect();
     voiceGain.disconnect();
     bandpass.connect(distortion);
     distortion.connect(musicGain);
     musicGain.connect(audioContext.destination);
-    audioElement.play().catch(() => { });
   }
+  
+  audioElement.play().catch(e => console.error("Playback failed:", e));
 }
 
 // Example usage for Immersive Mode:
@@ -322,13 +389,13 @@ function playIntroduction() {
   const immersiveMode = document.getElementById('immersiveMode');
   if (!radioOn) return;
   if (immersiveMode && immersiveMode.checked) {
-    playNext();
+    playFromQueue();
     return;
   }
   updateNowPlaying('Welcome to Enlightened Radio');
   updateMediaSession('Welcome to Enlightened Radio', "Host");
   audioElement.src = introFile;
-  audioElement.onended = playNext;
+  audioElement.onended = playFromQueue;
   bandpass.disconnect();
   distortion.disconnect();
   musicGain.disconnect();
@@ -337,6 +404,8 @@ function playIntroduction() {
   voiceDistortion.connect(voiceGain);
   voiceGain.connect(audioContext.destination);
   audioElement.play().catch(() => { });
+  
+  fillQueue(); // Begin eagerly caching future tracks immediately!
 }
 
 function updateNowPlaying(text) {
@@ -364,7 +433,7 @@ if ('mediaSession' in navigator) {
   navigator.mediaSession.setActionHandler('play', () => powerOn());
   navigator.mediaSession.setActionHandler('pause', () => powerOff());
   navigator.mediaSession.setActionHandler('nexttrack', () => {
-    if (radioOn) playNext();
+    if (radioOn) playFromQueue();
   });
 }
 
@@ -432,28 +501,28 @@ function powerOn() {
           }
           updateMediaSession(title, artist);
 
-          audioElement.onended = () => playVoiceLine(songFile, false);
+          audioElement.onended = playFromQueue;
         } else if (src.includes(adsFolder)) {
           const adFile = src.split('/').pop();
           const displayTitle = adTitles.ads[adFile] ? adTitles.ads[adFile].title : adFile;
           updateNowPlaying(`Ad: ${displayTitle}`);
           updateMediaSession(displayTitle, "Enlightened Radio Sponsor");
-          audioElement.onended = playNext;
+          audioElement.onended = playFromQueue;
         } else if (src.includes(playsFolder)) {
           const playFile = src.split('/').pop();
           const displayTitle = adTitles.plays[playFile] ? adTitles.plays[playFile].title : playFile;
           updateNowPlaying(`Radio Play: ${displayTitle}`);
           updateMediaSession(displayTitle, "Enlightened Radio");
-          audioElement.onended = playNext;
+          audioElement.onended = playFromQueue;
         } else if (src.includes(hostFolder)) {
           const hostFile = src.split('/').pop();
           updateNowPlaying(`Host: ${hostFile}`);
           updateMediaSession(`Host: ${hostFile}`, "Host");
-          audioElement.onended = playNext;
+          audioElement.onended = playFromQueue;
         } else if (src.includes(introFile)) {
           updateNowPlaying('Welcome to Enlightened Radio');
           updateMediaSession('Welcome to Enlightened Radio', "Host");
-          audioElement.onended = playNext;
+          audioElement.onended = playFromQueue;
         }
       }
       audioElement.play().catch(() => { });
@@ -528,6 +597,7 @@ function saveState() {
     currentSrc: audioElement.src,
     currentTime: audioElement.currentTime,
     nowPlayingText: document.getElementById('now-playing').textContent,
+    mediaQueue: mediaQueue.map(item => ({...item, preloader: null})), // Can't serialize Audio object
     // Modifiers
     immersiveMode: document.getElementById('immersiveMode')?.checked || false,
     falloutMode: document.getElementById('falloutMode')?.checked || false,
@@ -540,10 +610,10 @@ function saveState() {
 window.addEventListener('beforeunload', saveState);
 
 // Add change listeners to checkboxes for immediate saving
-document.getElementById('immersiveMode')?.addEventListener('change', saveState);
-document.getElementById('falloutMode')?.addEventListener('change', saveState);
-document.getElementById('adFreeMode')?.addEventListener('change', saveState);
-document.getElementById('familyFriendlyMode')?.addEventListener('change', saveState);
+document.getElementById('immersiveMode')?.addEventListener('change', handleModifierToggle);
+document.getElementById('falloutMode')?.addEventListener('change', handleModifierToggle);
+document.getElementById('adFreeMode')?.addEventListener('change', handleModifierToggle);
+document.getElementById('familyFriendlyMode')?.addEventListener('change', handleModifierToggle);
 // Also load state on page load to restore checkbox UI immediately
 window.addEventListener('load', loadState);
 
@@ -557,6 +627,14 @@ function loadState() {
     lastSongPlayed = state.lastSongPlayed || '';
     currentSeries = state.currentSeries || null;
     nextSeriesIndex = state.nextSeriesIndex || 0;
+    
+    mediaQueue = state.mediaQueue || [];
+    mediaQueue.forEach(item => {
+      item.preloader = new Audio();
+      item.preloader.preload = 'auto';
+      item.preloader.src = item.url;
+    });
+
     if (state.currentSrc) {
       audioElement.src = state.currentSrc;
       audioElement.currentTime = state.currentTime || 0;
