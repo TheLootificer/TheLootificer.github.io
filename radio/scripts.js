@@ -21,6 +21,7 @@ const postVoiceLines = {
 };
 
 let radioOn = false;
+let isAdvancing = false;
 let currentSongCount = 0;
 let lastSongPlayed = '';
 let playedSongs = [];
@@ -128,6 +129,42 @@ window.addEventListener('click', () => {
 audioElement.addEventListener('play', () => {
   if (audioContext.state === 'suspended') {
     audioContext.resume();
+  }
+});
+
+// Set ended handler ONCE, permanently
+audioElement.addEventListener('ended', () => {
+  if (radioOn && !isAdvancing) {
+    isAdvancing = true;
+    playFromQueue();
+  }
+});
+
+// Watchdog: catches missed 'ended' events when screen is off
+setInterval(() => {
+  if (!radioOn || audioElement.paused || isAdvancing) return;
+  if (audioElement.duration && audioElement.duration > 0) {
+    const remaining = audioElement.duration - audioElement.currentTime;
+    if (remaining < 0.8 && remaining > 0) {
+      // Nearly done — nudge it along
+      audioElement._watchdogFired = true;
+    } else if (remaining <= 0 || (audioElement._watchdogFired && audioElement.paused)) {
+      audioElement._watchdogFired = false;
+      isAdvancing = true;
+      playFromQueue();
+    }
+  }
+}, 750);
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') {
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+    // If we should be playing but aren't, recover
+    if (radioOn && audioElement.paused && audioElement.src) {
+      audioElement.play().catch(() => {});
+    }
   }
 });
 
@@ -350,6 +387,7 @@ function fillQueue() {
 }
 
 function playFromQueue() {
+  isAdvancing = false;
   if (!radioOn) return;
   fillQueue(); 
   
@@ -365,7 +403,6 @@ function playFromQueue() {
   updateMediaSession(nextItem.mediaTitle, nextItem.mediaArtist);
   
   audioElement.src = nextItem.url;
-  audioElement.onended = playFromQueue;
   
   if (nextItem.type === 'voice' || nextItem.type === 'intro') {
     bandpass.disconnect();
@@ -397,7 +434,6 @@ function playIntroduction() {
   updateNowPlaying('Welcome to Enlightened Radio');
   updateMediaSession('Welcome to Enlightened Radio', "Host");
   audioElement.src = introFile;
-  audioElement.onended = playFromQueue;
   bandpass.disconnect();
   distortion.disconnect();
   musicGain.disconnect();
@@ -432,8 +468,12 @@ function updateMediaSession(title, artist) {
 
 // Set up Media Session Action Handlers once
 if ('mediaSession' in navigator) {
-  navigator.mediaSession.setActionHandler('play', () => powerOn());
+  navigator.mediaSession.setActionHandler('play', () => {
+    if (!radioOn) powerOn();
+    else audioContext.resume().then(() => audioElement.play().catch(() => {}));
+  });
   navigator.mediaSession.setActionHandler('pause', () => powerOff());
+  navigator.mediaSession.setActionHandler('stop', () => powerOff());
   navigator.mediaSession.setActionHandler('nexttrack', () => {
     if (radioOn) playFromQueue();
   });
@@ -504,29 +544,23 @@ function powerOn() {
             artist = displayTitle.substring(lastByIndex + 4);
           }
           updateMediaSession(title, artist);
-
-          audioElement.onended = playFromQueue;
         } else if (src.includes(adsFolder)) {
           const adFile = src.split('/').pop();
           const displayTitle = adTitles.ads[adFile] ? adTitles.ads[adFile].title : adFile;
           updateNowPlaying(`Ad: ${displayTitle}`);
           updateMediaSession(displayTitle, "Enlightened Radio Sponsor");
-          audioElement.onended = playFromQueue;
         } else if (src.includes(playsFolder)) {
           const playFile = src.split('/').pop();
           const displayTitle = adTitles.plays[playFile] ? adTitles.plays[playFile].title : playFile;
           updateNowPlaying(`Radio Play: ${displayTitle}`);
           updateMediaSession(displayTitle, "Enlightened Radio");
-          audioElement.onended = playFromQueue;
         } else if (src.includes(hostFolder)) {
           const hostFile = src.split('/').pop();
           updateNowPlaying(`Host: ${hostFile}`);
           updateMediaSession(`Host: ${hostFile}`, "Host");
-          audioElement.onended = playFromQueue;
         } else if (src.includes(introFile)) {
           updateNowPlaying('Welcome to Enlightened Radio');
           updateMediaSession('Welcome to Enlightened Radio', "Host");
-          audioElement.onended = playFromQueue;
         }
       }
       audioElement.play().catch(() => { });
@@ -555,10 +589,10 @@ function powerOn() {
 function powerOff() {
   updateNowPlaying('');
   radioOn = false;
+  isAdvancing = false;
   staticGain.gain.value = 0;
   // Pause static and music/voice immediately
   audioElement.pause();
-  audioElement.onended = null; // Prevent auto-resume after pause
   // No need to stop staticNoise, just mute via gain
   const powerLed = document.getElementById('power-led');
   if (powerLed) {
