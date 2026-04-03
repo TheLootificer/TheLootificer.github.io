@@ -3,12 +3,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const combatLog = document.getElementById('combat-log');
     
     const characters = {
-        rogue: { agility: 5, damage: 8, defense: 4 },
-        knight: { agility: 1, damage: 10, defense: 10 },
-        barbarian: { agility: 2, damage: 15, defense: 6 },
-        mage: { agility: -1, damage: 18, defense: 2 },
-        goblin: { agility: 3, damage: 6, defense: 3 }
+        ace: { agility: 0, damage: '1d8+3', defense: 4, hp: 24 },
+        wolf: { agility: 2, damage: '1d6+2', defense: 2, hp: 7 }
     };
+
+    let attackerHp = 24;
+    let defenderHp = 7;
 
     function updateCharacterStats(role, charId) {
         if (charId === 'custom') return;
@@ -20,24 +20,156 @@ document.addEventListener('DOMContentLoaded', () => {
         if (role === 'att') {
             document.getElementById(`${role}-damage`).value = char.damage;
         } else if (role === 'def') {
-            document.getElementById(`${role}-base`).value = char.defense; // The user renamed this id to def-base
+            document.getElementById(`${role}-base`).value = char.defense;
         }
+    }
+
+    function togglePanelStats(role, charId) {
+        const panelClass = role === 'att' ? 'attacker-panel' : 'defender-panel';
+        const panel = document.querySelector(`.${panelClass}`);
+        if (!panel) return;
+        
+        const inputGroups = panel.querySelectorAll('.input-group');
+        
+        if (charId === 'wolf') {
+            // Hide everything but the select for Wolf
+            inputGroups.forEach(group => {
+                if (!group.querySelector('select')) {
+                    group.classList.add('hidden');
+                }
+            });
+        } else {
+            inputGroups.forEach(group => {
+                group.classList.remove('hidden');
+                // Ace also hides his damage because it's dynamic
+                if (charId === 'ace' && group.querySelector('input[type="number"]') && (group.querySelector('label').innerText.includes('DAMAGE'))) {
+                    group.classList.add('hidden');
+                }
+            });
+        }
+    }
+
+    function swapRoles() {
+        const attSelect = document.getElementById('att-character');
+        const defSelect = document.getElementById('def-character');
+        
+        const oldAtt = attSelect.value;
+        const oldDef = defSelect.value;
+        
+        // Swap health variables
+        [attackerHp, defenderHp] = [defenderHp, attackerHp];
+        
+        // Swap select values
+        attSelect.value = oldDef;
+        defSelect.value = oldAtt;
+        
+        // Update stats
+        updateCharacterStats('att', oldDef);
+        updateCharacterStats('def', oldAtt);
+        
+        // Toggle visibility
+        togglePanelStats('att', oldDef);
+        togglePanelStats('def', oldAtt);
+        
+        // Update active turn highlights
+        document.querySelector('.attacker-panel').classList.add('active-turn');
+        document.querySelector('.defender-panel').classList.remove('active-turn');
+        
+        addLog(`🔄 ROLES SWAPPED! Both sides prepare for the next exchange.`, 'system');
     }
 
     document.getElementById('att-character').addEventListener('change', (e) => {
         updateCharacterStats('att', e.target.value);
+        togglePanelStats('att', e.target.value);
+        if (characters[e.target.value]) {
+            attackerHp = characters[e.target.value].hp;
+            addLog(`New Attacker: HP reset to ${attackerHp}`, 'system');
+        }
+    });
+
+    // Populate the form fields on initial load based on the currently selected options
+    const initialAtt = document.getElementById('att-character').value;
+    const initialDef = document.getElementById('def-character').value;
+    
+    updateCharacterStats('att', initialAtt);
+    updateCharacterStats('def', initialDef);
+    togglePanelStats('att', initialAtt);
+    togglePanelStats('def', initialDef);
+    
+    document.querySelector('.attacker-panel').classList.add('active-turn');
+
+    if (characters[initialAtt]) {
+        attackerHp = characters[initialAtt].hp;
+    }
+    if (characters[initialDef]) {
+        defenderHp = characters[initialDef].hp;
+    }
+
+    // Character Selection Logic
+    const selectionOverlay = document.getElementById('selection-overlay');
+    const charCards = document.querySelectorAll('.char-card');
+
+    charCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const charId = card.getAttribute('data-char');
+            if (characters[charId]) {
+                // Update attacker selection
+                const attSelect = document.getElementById('att-character');
+                attSelect.value = charId;
+                updateCharacterStats('att', charId);
+                
+                // Reset HP
+                attackerHp = characters[charId].hp;
+                
+                // Toggle Stats for Ace if selected
+                togglePanelStats('att', charId);
+                
+                addLog(`Hero Chosen: Welcome, ${charId.toUpperCase()}!`, 'system');
+                
+                // Fade out overlay
+                selectionOverlay.classList.add('fade-out');
+                setTimeout(() => {
+                    selectionOverlay.classList.add('hidden');
+                }, 500);
+            }
+        });
     });
 
     document.getElementById('def-character').addEventListener('change', (e) => {
         updateCharacterStats('def', e.target.value);
-    });
+        togglePanelStats('def', e.target.value);
 
-    // Populate the form fields on initial load based on the currently selected options
-    updateCharacterStats('att', document.getElementById('att-character').value);
-    updateCharacterStats('def', document.getElementById('def-character').value);
+        if (characters[e.target.value]) {
+            defenderHp = characters[e.target.value].hp;
+            addLog(`New Defender: HP reset to ${defenderHp}`, 'system');
+        }
+    });
 
     function rollD20() {
         return Math.floor(Math.random() * 20) + 1;
+    }
+
+    function rollD6() {
+        return Math.floor(Math.random() * 6) + 1;
+    }
+
+    function rollD8() {
+        return Math.floor(Math.random() * 8) + 1;
+    }
+
+    function parseDamage(damageStr) {
+        if (typeof damageStr === 'number') return damageStr;
+        if (damageStr === '1d6+2') {
+            const roll = rollD6();
+            const total = roll + 2;
+            return { total, details: `(1d6: ${roll}) + 2 Str` };
+        }
+        if (damageStr === '1d8+3') {
+            const roll = rollD8();
+            const total = roll + 3;
+            return { total, details: `(1d8: ${roll}) + 3 Str` };
+        }
+        return parseInt(damageStr) || 0;
     }
 
     function addLog(message, type = '', details = '') {
@@ -81,9 +213,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         addSeparator();
         addLog('--- INITIATING COMBAT ROUND ---', 'system');
+        
+        // Ensure highlight is correct
+        document.querySelector('.attacker-panel').classList.add('active-turn');
+        document.querySelector('.defender-panel').classList.remove('active-turn');
 
         const attAgility = parseInt(document.getElementById('att-agility').value) || 0;
-        const attBaseDamage = parseInt(document.getElementById('att-damage').value) || 0;
+        const attDamageInput = document.getElementById('att-damage').value;
+        const attackerChar = document.getElementById('att-character').value;
+        
+        let damageData;
+        if (attackerChar === 'wolf') {
+            damageData = parseDamage('1d6+2');
+        } else if (attackerChar === 'ace') {
+            damageData = parseDamage('1d8+3');
+        } else {
+            damageData = { total: parseInt(attDamageInput) || 0, details: '' };
+        }
+
+        const attBaseDamage = damageData.total;
+        const attDamageDetails = damageData.details;
+
         const defAgility = parseInt(document.getElementById('def-agility').value) || 0;
         const defBase = parseInt(document.getElementById('def-base').value) || 0;
         const defFullRed = defBase;
@@ -121,10 +271,38 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (aRerollTot > dRerollTot) {
                 addLog(`⚔️ Attacker wins the tie-breaker! They strike with DOUBLE damage. Defender takes FULL damage.`, 'result');
-                addLog(`🩸 Result: Defender takes ${attBaseDamage * 2} damage!`, 'result', 'No defense reductions apply on tie loss.');
+                const dmg = attBaseDamage * 2;
+                defenderHp -= dmg;
+                addLog(`🩸 Result: Defender takes ${dmg} damage!`, 'result', 'No defense reductions apply on tie loss.');
+                if (defenderHp <= 0) {
+                    defenderHp = 0;
+                    addLog(`💀 DEFENDER DEFEATED! Remaining HP: 0`, 'critical');
+                } else {
+                    addLog(`❤️ Defender Remaining HP: ${defenderHp}`, 'system');
+                }
             } else {
                 addLog(`🛡️ Defender wins the tie-breaker! They instantly counter-attack with DOUBLE damage. Attacker takes FULL damage.`, 'result');
-                addLog(`💥 Result: Attacker takes double damage! (Assuming identical weapon stats = ${attBaseDamage * 2} damage taken)`, 'result');
+                // For direct counter, use defender's damage logic
+                const defDamageIn = document.getElementById('def-base').value; // Wait, current system uses att-damage for dual testing
+                // User requirement: Wolf does 1d6 damage. Let's handle counter damage properly.
+                const defChar = document.getElementById('def-character').value;
+                let counterDamageData;
+                if (defChar === 'wolf') {
+                    counterDamageData = parseDamage('1d6+2');
+                } else if (defChar === 'ace') {
+                    counterDamageData = parseDamage('1d8+3');
+                } else {
+                    counterDamageData = { total: 10, details: '(Static Counter)' }; // Placeholder if not wolf/ace
+                }
+                const counterDmg = counterDamageData.total * 2;
+                attackerHp -= counterDmg;
+                addLog(`💥 Result: Attacker takes ${counterDmg} damage!`, 'result', `${counterDamageData.details} × 2`);
+                if (attackerHp <= 0) {
+                    attackerHp = 0;
+                    addLog(`💀 ATTACKER DEFEATED! Remaining HP: 0`, 'critical');
+                } else {
+                    addLog(`💙 Attacker Remaining HP: ${attackerHp}`, 'system');
+                }
             }
             return; // Tie resolves everything for this round
         }
@@ -152,6 +330,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (dNat20) {
             addLog(`✨ Defender rolled a Nat 20! They completely dodge any attack and instantly make a counter-attack!`, 'critical');
+            const defChar = document.getElementById('def-character').value;
+            let counterDamageData;
+            if (defChar === 'wolf') {
+                counterDamageData = parseDamage('1d6+2');
+            } else if (defChar === 'ace') {
+                counterDamageData = parseDamage('1d8+3');
+            } else {
+                counterDamageData = { total: 10, details: '(Static Counter)' };
+            }
+            attackerHp -= counterDamageData.total;
+            addLog(`💥 Result: Attacker takes ${counterDamageData.total} damage!`, 'result', `${counterDamageData.details}`);
+            if (attackerHp <= 0) {
+                attackerHp = 0;
+                addLog(`💀 ATTACKER DEFEATED! Remaining HP: 0`, 'critical');
+            } else {
+                addLog(`💙 Attacker Remaining HP: ${attackerHp}`, 'system');
+            }
             return; // Defender evades fully and counters, end regular resolution
         }
 
@@ -166,6 +361,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let finalDamage = attBaseDamage * damageMultiplier;
         let baseDmgText = damageMultiplier > 1 ? `${attBaseDamage} × ${damageMultiplier} multiplier = ${finalDamage}` : `${finalDamage}`;
+        if (attDamageDetails && damageMultiplier === 1) {
+            baseDmgText = `${attDamageDetails} = ${finalDamage}`;
+        } else if (attDamageDetails && damageMultiplier > 1) {
+            baseDmgText = `${attDamageDetails} (${attBaseDamage}) × ${damageMultiplier} = ${finalDamage}`;
+        }
         
         if (difference >= 5) { 
             // Defender succeeds by 5+
@@ -188,6 +388,20 @@ document.addEventListener('DOMContentLoaded', () => {
             // Defender fails by 5+
             addLog(`💥 Defender fails by ${Math.abs(difference)} (5+ margin). The attacker finds a vital spot, dealing full damage!`, 'result');
             addLog(`🩸 Result: Takes ${finalDamage} damage!`, 'result', `Damage: ${baseDmgText} with NO reductions.`);
+        }
+
+        // Apply health reduction
+        defenderHp -= finalDamage;
+        if (defenderHp <= 0) {
+            defenderHp = 0;
+            addLog(`💀 DEFENDER DEFEATED! Remaining HP: 0`, 'critical');
+        } else {
+            addLog(`❤️ Defender Remaining HP: ${defenderHp}`, 'system');
+        }
+
+        // Swap roles for next round if both still alive
+        if (attackerHp > 0 && defenderHp > 0) {
+            setTimeout(swapRoles, 1500); // Small delay for readability
         }
     });
 });

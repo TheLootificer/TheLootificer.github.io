@@ -12,6 +12,27 @@
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
     </div>
+
+    <!-- Character Selection Overlay -->
+    <div id="selection-overlay" class="selection-overlay">
+        <div class="selection-content">
+            <h1>Choose Your Hero</h1>
+            <div class="character-cards">
+                <div class="char-card" data-char="ace">
+                    <div class="char-header">
+                        <h3>Ace</h3>
+                        <span class="char-role">Player</span>
+                    </div>
+                    <div class="char-stats">
+                        <div class="stat-item">❤️ 24 HP</div>
+                        <div class="stat-item">🛡️ 4 Defense</div>
+                        <div class="stat-item">🏏 1d8+3 Baseball Bat</div>
+                    </div>
+                </div>
+                <!-- Additional heroes could be added here -->
+            </div>
+        </div>
+    </div>
     <div class="container">
         <header>
             <h1>Combat Simulator</h1>
@@ -27,11 +48,8 @@
                         <label for="att-character">Character Class</label>
                         <select id="att-character">
                             <option value="custom">Custom</option>
-                            <option value="rogue">Rogue (High Agility)</option>
-                            <option value="knight">Knight (High Defense)</option>
-                            <option value="barbarian" selected>Barbarian (High Damage)</option>
-                            <option value="mage">Mage (Glass Cannon)</option>
-                            <option value="goblin">Goblin (Fodder)</option>
+                            <option value="ace" selected>Ace (24 HP, 1d8+3 Bat)</option>
+                            <option value="wolf">Wolf (1d6 + 2 Str)</option>
                         </select>
                         <div class="select-arrow"></div>
                     </div>
@@ -55,11 +73,8 @@
                         <label for="def-character">Character Class</label>
                         <select id="def-character">
                             <option value="custom">Custom</option>
-                            <option value="rogue">Rogue (High Agility)</option>
-                            <option value="knight" selected>Knight (High Defense)</option>
-                            <option value="barbarian">Barbarian (High Damage)</option>
-                            <option value="mage">Mage (Glass Cannon)</option>
-                            <option value="goblin">Goblin (Fodder)</option>
+                            <option value="ace">Ace (24 HP, 4 Armor)</option>
+                            <option value="wolf" selected>Wolf (7 HP, Hidden Stats)</option>
                         </select>
                         <div class="select-arrow"></div>
                     </div>
