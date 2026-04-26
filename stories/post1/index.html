@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Later...</title>
+    <link rel="icon" href="/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="/styles.css">
+    <meta property="og:title" content="World Building Post 1: Later..." />
+    <meta property="og:description" content="AshHaven World Building Post 1: Later..." />
+    <meta property="og:url" content="https://ashhaven.com/" />
+    <meta property="og:image" content="https://ashhaven.com/images/logo.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AshHaven" />
+    <meta name="theme-color" content="#7800ff" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            background-image: url('/images/background.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li> <a href="/about/" class="menu-item">About</a></li>
+            <li> <a href="/author/" class="menu-item">About the Author</a></li>
+            <li> <a href="/ashhaven/" class="menu-item">AshHaven Roleplay Server</a></li>
+        </ul>
+    </div>
+    <div class="banner">
+        <div class="logo">
+            <img src="/images/logo.png" alt="Logo" class="logo-img">
+            <h1 class="site-name"><a href="/" style="color: #fff;">AshHaven</a></h1>
+        </div>
+        <div class="button-container">
+            <button id="toggleFont"
+                style="margin: 5px; padding: 5px; color: white; background-color: transparent;">Toggle Font</button>
+            <button onclick="toggleSidebar()" style="color: white; background-color: transparent;">≡</button>
+        </div>
+    </div>
+    <div class="header-container">
+    </div>
+
+    <div class="container">
+
+        <header class="header">
+            <h1>For The Queens!</h1>
+        </header>
+
+        <div class="content">
+            <p>Leaf’s eyes slid open like a camera shutter, the dim glow in his eyes brightened slightly. He was finally
+                awake. He let out something akin to a metallic-sounding yawn before he stretched; he knew he didn’t have
+                to do this… But it felt right. It was the dawn of a new day, which meant more mining. Leaf loved working
+                in the mine, partially because that’s what he was made for, but also because he enjoyed the adrenaline
+                rush of finding the shiny bits of rock.</p>
+            <p>As Leaf finally sputtered to life, he realized something: Everything was quiet.</p>
+            <p>Usually, by then, the hustle and bustle of city life would make at least some noise. Leaf went out to
+                investigate. He walked out of the mine, he saw… No one, not a single soul, human or animal.</p>
+            <p>“Where is everyone…” Leaf asked himself, a question lost to the wind as soon as it left his synthetic
+                mouth.</p>
+            <p>Panic set in.</p>
+            <br><br>
+            <p>Leaf hurried over to a nearby house and rapped his knuckles on the door. “Mayor Nelson, I think something
+                is horribly wrong…” </p>
+            <p>Nothing.</p>
+            <p>Silence. That was the only response he received.</p>
+            <p>He reached down for the door handle. It was unlocked.</p>
+            <p>Leaf stepped inside.</p>
+            <p>The warforged looked around, hoping to find some sign of life. Something… Anything. </p>
+            <p>He picked up a mug of coffee, still steaming. The table was laid out with a spread of eggs and bacon. He
+                reached out and straightened a crooked picture frame: The Mayor, his family, and their dog, Nomad. Leaf
+                knew they couldn’t have left because their shoes were still by the door.</p>
+            <p>He was alone.</p>
+            <p>“There’s no signs of them leaving, and there’s no signs of struggle…” Leaf muttered to himself, as he
+                glanced down at the mug of coffee once more. “They just… Vanished.”</p>
+            <p>Leaf left the Mayor’s house. He told himself he’d clean the houses out later, but for now, he had a
+                purpose to serve; he had some work to do. He grabbed his pick, swinging it over his shoulder, and began
+                his descent.</p>
+            <br>
+        </div>
+
+        <footer class="footer">
+            <script src="https://giscus.app/client.js" data-repo="TheLootificer/TheLootificer.github.io"
+                data-repo-id="R_kgDOLozQqQ" data-category="General" data-category-id="DIC_kwDOLozQqc4Cee70"
+                data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0"
+                data-input-position="top" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous"
+                async>
+                </script>
+            &copy; 2026 Ashhaven
+        </footer>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // Dyslexic Font Toggle Functionality
+        document.getElementById('toggleFont').addEventListener('click', function () {
+            const contentElement = document.querySelector('.content');
+            contentElement.classList.toggle('dyslexic-font');
+        });
+    </script>
+</body>
+
+</html>
