@@ -1,5 +1,3 @@
-// Data extracted from the original source
-
 const killersData = {
     trapper: {
         name: "The Trapper",
@@ -7,7 +5,8 @@ const killersData = {
         description: "An area-control Killer, able to apply pressure across the map by placing deadly Bear Traps for survivors to step in. The Trapper can shut down almost any window and pallet in the game and even completely lock down a small area by using several traps. While his power is slow and suffers against coordinated teams, one wrong step is all it takes for the game to turn around entirely.",
         dlc: false,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/trapper.png"
+        available: true,
+        background: "backgrounds/storeBackground_TR.png"
     },
     wraith: {
         name: "The Wraith",
@@ -15,7 +14,8 @@ const killersData = {
         description: "A stealth Killer, able to Cloak and Uncloak at the ringing of his Wailing Bell. Being almost entirely silent and invisible from a distance, the Wraith can cover large distances quickly and immediately inflict damage after a successful ambush. He doesn’t have many tools to help him in prolonged chases, however.",
         dlc: false,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/wraith.png"
+        available: true,
+        background: "backgrounds/storeBackground_WR.png"
     },
     hillbilly: {
         name: "The Hillbilly",
@@ -23,7 +23,8 @@ const killersData = {
         description: "A high mobility Killer, able to cover large distances in a short amount of time and instantly down Survivors using his Chainsaw. The Hillbilly’s base ability gives him mobility, lethality and a tool to shred through pallets quickly, but using his Chainsaw successfully against smart opponents can be quite the challenge.",
         dlc: false,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/hillbilly.png"
+        available: true,
+        background: "backgrounds/storeBackground_HB.png"
     },
     nurse: {
         name: "The Nurse",
@@ -31,7 +32,8 @@ const killersData = {
         description: "A warping Killer, able to Blink through obstacles and quickly close gaps with her power, Spencer’s Last Breath. The Nurse’s ability ignores all basic gameplay elements and makes her a constant threat in chase. Without a perfect execution, however, you will find yourself struggling against smarter Survivors.",
         dlc: false,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/nurse.png"
+        available: true,
+        background: "backgrounds/storeBackground_NR.png"
     },
     huntress: {
         name: "The Huntress",
@@ -39,7 +41,8 @@ const killersData = {
         description: "A ranged Killer, able to throw Hunting Hatchets at Survivors to injure them from a distance. The Huntress punishes careless Survivors with occasional long distance shots and her devastating ability to shred through health states from up close. Despite having low mobility and limited stealth options, her high skill ceiling shines in the hands of experienced players.",
         dlc: false,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/huntress.png"
+        available: true,
+        background: "backgrounds/storeBackground_BE.png"
     },
     shape: {
         name: "The Shape",
@@ -47,7 +50,8 @@ const killersData = {
         description: "A haunting Killer, intent on monitoring Survivors from a Distance to feed his power, Evil Within. The more he stalks, the stronger and faster he becomes. While the Shape’s early game is slow and his abilities are basic, there’s no getting around his powerful presence when he’s fully powered up. His unique add-ons make him rather unpredictable.",
         dlc: true,
         licensed: true,
-        background: "https://assetboi.com/which_killer/killers/shape.png"
+        available: false,
+        background: "backgrounds/storeBackground_SH.png"
     },
     hag: {
         name: "The Hag",
@@ -55,7 +59,8 @@ const killersData = {
         description: "A cursed Killer, able to place traps and then teleport to them when activated, using her Blackened Catalyst. The Hag is mostly a defensive Killer, relying on careful trap placement, anticipating the Survivors’ moves. If they fail to harass you during your preparation, they will often find themselves in unwinnable scenarios.",
         dlc: true,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/hag.png"
+        available: true,
+        background: "backgrounds/storeBackground_HA.png"
     },
     doctor: {
         name: "The Doctor",
@@ -63,7 +68,8 @@ const killersData = {
         description: "A madness-inducing Killer who is able to use his power, Carter’s Spark, to trigger electrical charges, incapacitating Survivors and eventually causing them to hallucinate and scream in terror, revealing their position. Despite lacking any remarkable mobility or lethality, The Doctor has excellent tools to find hiding survivors and prevent them from using their abilities at critical times. His shock can also be helpful during chase. His remarkable repertoire of add-ons expands these abilities even further.",
         dlc: true,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/doctor.png"
+        available: true,
+        background: "backgrounds/storeBackground_DO.png"
     },
     cannibal: {
         name: "The Cannibal",
@@ -71,7 +77,8 @@ const killersData = {
         description: "A chainsaw-wielding Killer, able to trigger a deadly frenzy using Bubba’s Chainsaw, immediately downing anyone in its path. While lacking in mobility or other complex abilities, the Cannibal has remarkable close range lethality and pallet breaking abilities. Correct use of his simple power will often put Survivors against the ropes, but your execution will need to be more and more precise as you go against stronger opponents.",
         dlc: true,
         licensed: true,
-        background: "https://assetboi.com/which_killer/killers/storebackground_ca.png"
+        available: true,
+        background: "backgrounds/storeBackground_CA.png"
     },
     nightmare: {
         name: "The Nightmare",
@@ -79,7 +86,8 @@ const killersData = {
         description: "A nightmare inducing Killer, passively forcing Survivors into his Dream World using his power, Dream Demon. It is here that Survivors become extremely vulnerable to his dream abilities. Using his Dream Projection ability he is able to quickly appear across the map and put pressure on Survivors. The Nightmare’s multiple abilities have great synergies with already strong perks and allow him to keep pressure on generators across any distance and sometimes cut chases short. While not particularly difficult to use mechanically, you will need to use all of your powers efficiently if you want to win against strong opponents.",
         dlc: true,
         licensed: true,
-        background: "https://assetboi.com/which_killer/killers/freddy.png"
+        available: true,
+        background: "backgrounds/storeBackground_SD.png"
     },
     pig: {
         name: "The Pig",
@@ -87,7 +95,8 @@ const killersData = {
         description: "A tormenting Killer, able to crouch into stealth mode, then ambush Survivors from a short distance. She can also apply Reverse Bear Traps to downed Survivors, forcing them to remove it before the timer runs out. If the timer expires, they die instantly. The Pig doesn’t excel in any one area, but her several abilities (stealth, ambush, built-in slowdown…) can often be overwhelming for Survivors. Finding the correct synergy with your perks and add-ons is often the key to perform well.",
         dlc: true,
         licensed: true,
-        background: "https://assetboi.com/which_killer/killers/pig.png"
+        available: true,
+        background: "backgrounds/storeBackground_FK.png"
     },
     clown: {
         name: "The Clown",
@@ -95,7 +104,8 @@ const killersData = {
         description: "A strategic Killer, able to control and corral Survivors by throwing bottles of The Afterpiece Tonic to create clouds of noxious gas that cover large areas for a short amount of time. Survivors intoxicated by the gas are inflicted with impaired vision and movement speed, and give away their location by coughing loudly. The Clown’s abilities are quite basic, but they can turn any greedy play by a Survivor into an almost guaranteed hit if they are applied correctly. With perks and add-ons to make up for his unremarkable mobility and lethality, the Clown can become a considerable threat.",
         dlc: true,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/StoreBackground_GK.png"
+        available: true,
+        background: "backgrounds/storeBackground_GK.png"
     },
     spirit: {
         name: "The Spirit",
@@ -103,7 +113,8 @@ const killersData = {
         description: "A phase-walking Killer, able to catch Survivors off-guard with her traversal power, Yamaoka’s Haunting. Her power allows her to teleport from one place to another without being seen. The sheer unpredictability of the Spirit’s power puts a lot of power into your hands while simultaneously making it extremely difficult for Survivors to make the right decisions in chase. Her chasing potential is off the charts once you get used to the intricacies of her phasing and her complex but powerful add-ons.",
         dlc: true,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/Spirit.png"
+        available: true,
+        background: "backgrounds/storeBackground_RY.png"
     },
     legion: {
         name: "The Legion",
@@ -111,7 +122,8 @@ const killersData = {
         description: "A band of merciless Killers, able to rushdown helpless Survivors with their power, Feral Frenzy. Attacks made during their frenzy inflict lingering internal damage, downing any Survivors that are not quick enough to react. While it doesn’t typically help to down survivors directly, the Legion’s power is a powerful tool to track them and keep them constantly injured. Every mistake they make will be harshly punished if you play your cards right and your chasing game is on point.",
         dlc: true,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/StoreBackground_KK.png"
+        available: true,
+        background: "backgrounds/storeBackground_KK.png"
     },
     plague: {
         name: "The Plague",
@@ -119,7 +131,8 @@ const killersData = {
         description: "A devout Killer, able to infect Survivors from a short distance using her power, Vile Purge. Survivors inflicted by this contamination risk becoming injured or broken, unless they find a way to cure themselves in a Pool of Devotion. The Plague is a very dynamic Killer, slowly poisoning Survivors’ health over time but also becoming an aggressive ranged attacker that can down multiple targets in seconds. Smart decision making and precise execution are both required to make the most of her abilities.",
         dlc: true,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/Plaga.png"
+        available: true,
+        background: "backgrounds/storeBackground_MK.png"
     },
     ghostface: {
         name: "The Ghost Face",
@@ -127,7 +140,8 @@ const killersData = {
         description: "A creepy Killer, able to stalk his victims and sneak up silently using his power, Night Shroud. Affected Survivors will find themselves vulnerable and oblivious to his presence and must use all of their perception and awareness to protect themselves from his approach. Ghostface’s excellent stealth provides a simple way to ambush Survivors but can also be used to expose them and deal devastating blows when they least expect it. Making mistakes with this Killer can be quite punishing, especially if you don’t bring add-ons to help with your power’s recovery.",
         dlc: true,
         licensed: true,
-        background: "https://assetboi.com/which_killer/killers/Jed_Olsen.png"
+        available: true,
+        background: "backgrounds/storeBackground_OK.png"
     },
     demogorgon: {
         name: "The Demogorgon",
@@ -135,7 +149,8 @@ const killersData = {
         description: "An unidentified Killer, able to open multiple portals and traverse between them to cover large distances. Using its power, Of the Abyss, it can detect any Survivors within a close proximity to the portals then unleash a leaping attack to inflict damage from a distance. The Demogorgon is a well-rounded Killer with a complex set of useful abilities and a repertoire of add-ons to enhance each of them. His chasing potential can be quite oppressive in the right hands.",
         dlc: true,
         licensed: true,
-        background: "https://assetboi.com/which_killer/killers/qk_storebackground.png"
+        available: true,
+        background: "backgrounds/QK_storeBackground.png"
     },
     oni: {
         name: "The Oni",
@@ -143,7 +158,8 @@ const killersData = {
         description: "A monstrous Killer, able to absord the blood energy of his injured foes, and then use that energy to transform into a brutal demon. Using his power, Yamaoka’s Wrath, he can rush down Survivors at great speed and deal deadly strikes with his kanabo. When powered up, the Oni gains a temporary but significant burst of speed and lethality that can quickly give him a decisive advantage. However, he must be played very efficiently until his power is ready to be used. His powerful add-ons can help in a number of different areas.",
         dlc: true,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/oni.png"
+        available: true,
+        background: "backgrounds/SK_storeBackground.png"
     },
     deathslinger: {
         name: "The Deathslinger",
@@ -151,7 +167,8 @@ const killersData = {
         description: "A vengeful Killer, able to spear Survivors from a distance and reel them in using his power, The Redeemer. The Deathslinger has the remarkable ability to injure (and sometimes down) Survivors in most areas, provided that his accuracy is on point. Finding the right combination of perks and add-ons to fit your playstyle is particularly helpful and mitigates many of his shortcomings.",
         dlc: true,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/Caleb_Quinn.png"
+        available: true,
+        background: "backgrounds/UK_storeBackground.png"
     },
     executioner: {
         name: "The Executioner",
@@ -159,7 +176,8 @@ const killersData = {
         description: "A map-manipulation Killer, able to torment Survivors with the hazards he creates. Affected Survivors will be vulnerable to his special Hook, the Cage of Atonement, and his unique mori, Final Judgment. While the Executioner is mostly unable to use hook-related perks himself, he can often counter many of the strongest hook-related perks that Survivors bring. His ranged attack is difficult to master but provides a constant threat to Survivors in chase if used correctly.",
         dlc: true,
         licensed: true,
-        background: "https://assetboi.com/which_killer/killers/Pyramid_Head.png"
+        available: true,
+        background: "backgrounds/K20_Background.png"
     },
     blight: {
         name: "The Blight",
@@ -167,7 +185,8 @@ const killersData = {
         description: "An unpredictable Killer, able to rush forward in a burst of speed and carom off obstacles to injure Survivors using his power, Blighted Corruption. The Blight’s sheer mobility makes it almost impossible for Survivors to consistently outrun him. While beginners might use his difficult ability sparingly, advanced Blight players are capable of constantly using their environment to create threats and end their chases extremely quickly.",
         dlc: true,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/Talbot_Grimes.png"
+        available: true,
+        background: "backgrounds/K21_Background.png"
     },
     twins: {
         name: "The Twins",
@@ -175,7 +194,8 @@ const killersData = {
         description: "A cooperative pair of Killers, able to divide and hunt together using their power, Blood Bond. When released, Victor can use his remarkable speed to quickly injure or hinder Survivors. The Twins can apply a remarkable amount of pressure and slow the game down considerably. Smart decision making and precise use of Victor’s pounce are definitely required.",
         dlc: true,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/thetwins.png"
+        available: true,
+        background: "backgrounds/K22_Background.png"
     },
     trickster: {
         name: "The Trickster",
@@ -183,7 +203,8 @@ const killersData = {
         description: "A ranged Killer, able to quickly unleash a flurry of blades by using his power, Showstopper. While slightly underwhelming in certain areas, the Trickster’s power is deceivingly strong when Survivors are caught in the open or are forced to perform certain actions in front of you. While he is not as immediately threatening as some of the other ranged Killers, he has a lot more room for mistake in his approach.",
         dlc: true,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/K23_storeBackground.png"
+        available: true,
+        background: "backgrounds/K23_Background.png"
     },
     nemesis: {
         name: "The Nemesis",
@@ -191,7 +212,8 @@ const killersData = {
         description: "An unrelenting Killer, capable of attacking at mid-range with his tentacle, while receiving support from zombies roaming the area. The Nemesis has a powerful short-range attack that grows stronger and more oppressive as the match goes on. Players that can manage a lot of information at once and adapt quickly will make the most out of his abilities.",
         dlc: true,
         licensed: true,
-        background: "https://assetboi.com/which_killer/killers/nemesis.png"
+        available: true,
+        background: "backgrounds/K24_Background.png"
     },
     cenobite: {
         name: "The Cenobite",
@@ -199,7 +221,8 @@ const killersData = {
         description: "A summoning Killer, able to possess chain projectiles and use the Lament Configuration to torture every Survivor at once. The Cenobite has several active and passive abilities, enabling a wide range of different playstyles. Deep understanding of these abilities and tremendous mechanical skill are both required to bring out his potential.",
         dlc: true,
         licensed: true,
-        background: "https://assetboi.com/which_killer/killers/cenobite.png"
+        available: false,
+        background: "backgrounds/K25_Background.png"
     },
     artist: {
         name: "The Artist",
@@ -207,7 +230,8 @@ const killersData = {
         description: "A ranged-reconnaissance Killer, able to launch Dire Crows across the Map to reveal and attack Survivors. The Artist can shut down most loops in seconds and exert pressure across the map with her ranged attacks if Survivors do not counter her swarms appropriately. While she is easy enough to pick up, she possesses an enormous skill ceiling.",
         dlc: true,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/artist.png"
+        available: true,
+        background: "backgrounds/K26_Background.png"
     },
     onryo: {
         name: "The Onryō",
@@ -215,7 +239,8 @@ const killersData = {
         description: "A vengeful Killer, able to silently and invisibly traverse the Realm, manifesting when she is ready to strike. The Onryo has a number of tools to ambush Survivors and keep them on their toes. Her stealth and remarkable mobility must be used very efficiently to make up for her limited chase potential.",
         dlc: true,
         licensed: true,
-        background: "https://assetboi.com/which_killer/killers/onryo.png"
+        available: true,
+        background: "backgrounds/K27_Background.png"
     },
     dredge: {
         name: "The Dredge",
@@ -223,7 +248,8 @@ const killersData = {
         description: "The Dredge is a manifestation of the dark thoughts of a once-vibrant community, able to teleport between Lockers and summon an overwhelming darkness. The Dredge has excellent mobility across most maps and some basic anti-loop tools. Most of its abilities become stronger during Nightfall, which rewards good decision making and smart usage of certain perks. Newer Survivors can also be overwhelmed by the lack of visibility during this period.",
         dlc: true,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/dredge.png"
+        available: true,
+        background: "backgrounds/K28_Background.png"
     },
     mastermind: {
         name: "The Mastermind",
@@ -231,7 +257,8 @@ const killersData = {
         description: "Albert Wesker is a brilliant and ruthless mastermind infused with the Power of Uroboros. The Mastermind can perform two quick dashes to traverse the map, hit Survivors or even vault obstacles. These dashes can be quite oppressive in chase if used correctly. His passive infection can also threaten to expose and hinder Survivors, forcing them to waste precious time to get rid of it.",
         dlc: true,
         licensed: true,
-        background: "https://assetboi.com/which_killer/killers/wesker.png"
+        available: true,
+        background: "backgrounds/K29_Background.png"
     },
     knight: {
         name: "The Knight",
@@ -239,7 +266,8 @@ const killersData = {
         description: "A strategic Killer, able to send his faithful Guards to hunt for Survivors and damage objects on the battlefield. The Knight and his summons can quickly overwhelm Survivors if they choose to stay in an area. Success with him heavily relies on bringing synergistic perks and add-ons as well as understanding each Guard’s unique strengths and properties.",
         dlc: true,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/knight.png"
+        available: true,
+        background: "backgrounds/K30_Background.png"
     },
     skull_merchant: {
         name: "The Skull Merchant",
@@ -247,7 +275,8 @@ const killersData = {
         description: "A tactical Killer, able to place Drones that detect and debilitate her targets. The Skull Merchant’s Drones can create dangerous areas that Survivors must navigate carefully or risk becoming exposed. Despite having a limited chase potential early on, correct use of her abilities can severely slow down repairs and stall progress until a serious mistake allows her to gain the advantage.",
         dlc: true,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/skull_merchant.png"
+        available: true,
+        background: "backgrounds/K31_Background.png"
     },
     singularity: {
         name: "The Singularity",
@@ -255,7 +284,8 @@ const killersData = {
         description: "A relentless Killer, able to launch Biopods to move quickly across the map. The Singularity can use his power to keep an eye on several locations at once or focus his attention on a single area. A very aggressive playstyle is required to keep up with Survivors that constantly try to use EMPs to disable your abilities.",
         dlc: true,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/singularity.png"
+        available: true,
+        background: "backgrounds/K32_Background.png"
     },
     xenomorph: {
         name: "The Xenomorph",
@@ -263,7 +293,8 @@ const killersData = {
         description: "A vicious and cunning Killer, able to traverse the map quickly and strike from a distance with its tail. The Xenomorph’s tunnels are a constant source of mobility and ambush potential, but its real strength comes from mastering its strong but unintuitive tail attack. Be ready to make lots of quick decisions.",
         dlc: true,
         licensed: true,
-        background: "https://assetboi.com/which_killer/killers/xenomorph.png"
+        available: true,
+        background: "backgrounds/K33_Background.png"
     },
     good_guy: {
         name: "The Good Guy",
@@ -271,7 +302,8 @@ const killersData = {
         description: "An elusive Killer, capable of deceiving Survivors with his illusory Footfalls and deadly Slice & Dice. The Good Guy is a unique Killer played in third person with stealth elements and a versatile dash attack. Your success with him will depend on your ability to land hits consistently and manage the power cooldown between uses.",
         dlc: true,
         licensed: true,
-        background: "https://assetboi.com/which_killer/killers/good_guy.png"
+        available: true,
+        background: "backgrounds/K34_Background.png"
     },
     unknown: {
         name: "The Unknown",
@@ -279,15 +311,17 @@ const killersData = {
         description: "A mysterious Killer, able to use his power, The Unknown’s Shadow, to create illusions of himself that can deceive Survivors. The Unknown is a unique Killer played in third person with stealth elements and a versatile dash attack. Your success with him will depend on your ability to land hits consistently and manage the power cooldown between uses.",
         dlc: true,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/the_unknown.png"
+        available: true,
+        background: "backgrounds/K35_Background.png"
     },
     lich: {
         name: "The Lich",
         wiki_link: "https://deadbydaylight.wiki.gg/wiki/Vecna",
-        description: "",
+        description: "A versatile Killer, able to cast a variety of spells using his power, Spell Casting. Fly grants him incredible map-wide mobility, Mage Hand can lift or block pallets, Dispelling Sphere reveals Survivors through Killer Instinct, and Flight of the Damned unleashes a line of skeletal spirits through walls to strike from a distance. The Lich also spawns magical chests that grant Survivors items capable of interacting with his spells, adding a layer of strategy for both sides. With so many tools at his disposal, knowing the right spell for each situation and managing cooldowns efficiently are key to success. His high versatility makes him difficult to master but incredibly rewarding for players who can juggle everything at once.",
         dlc: true,
         licensed: true,
-        background: "https://assetboi.com/which_killer/killers/lich.png"
+        available: true,
+        background: "backgrounds/K36_Background.png"
     },
     dark_lord: {
         name: "The Dark Lord",
@@ -295,7 +329,8 @@ const killersData = {
         description: "",
         dlc: true,
         licensed: true,
-        background: "https://assetboi.com/which_killer/killers/dark_lord.png"
+        available: true,
+        background: "backgrounds/K37_Background.png"
     },
     houndmaster: {
         name: "The Houndmaster",
@@ -303,7 +338,8 @@ const killersData = {
         description: "",
         dlc: true,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/houndmaster.png"
+        available: true,
+        background: "backgrounds/T_UI_K38_Background.png"
     },
     ghoul: {
         name: "The Ghoul",
@@ -311,7 +347,8 @@ const killersData = {
         description: "",
         dlc: true,
         licensed: true,
-        background: "https://assetboi.com/which_killer/killers/ghoul.png"
+        available: true,
+        background: "backgrounds/T_UI_K39_Background.png"
     },
     animatronic: {
         name: "The Animatronic",
@@ -319,7 +356,8 @@ const killersData = {
         description: "",
         dlc: true,
         licensed: true,
-        background: "https://assetboi.com/which_killer/killers/animatronic.png"
+        available: true,
+        background: "backgrounds/T_UI_K40_Background.png"
     },
     krasue: {
         name: "The Krasue",
@@ -327,8 +365,27 @@ const killersData = {
         description: "",
         dlc: true,
         licensed: false,
-        background: "https://assetboi.com/which_killer/killers/krasue.png"
-    }
+        available: true,
+        background: "backgrounds/T_UI_K41_Background.png"
+    },
+    first: {
+        name: "The First",
+        wiki_link: "https://deadbydaylight.wiki.gg/wiki/Henry_Creel",
+        description: "",
+        dlc: true,
+        licensed: true,
+        available: true,
+        background: "backgrounds/T_UI_K42_Background.png"
+    },
+    slasher: {
+        name: "The Slasher",
+        wiki_link: "https://deadbydaylight.wiki.gg/wiki/Jason_Voorhees",
+        description: "",
+        dlc: true,
+        licensed: true,
+        available: true,
+        background: "backgrounds/T_UI_K43_Background.png"
+    },
 };
 
 const questionsData = [
@@ -342,7 +399,7 @@ const questionsData = [
         ],
         groups: {
             standard: ["trapper", "wraith", "shape", "doctor", "cannibal", "nightmare", "pig", "clown", "legion", "ghostface", "demogorgon", "oni", "executioner", "nemesis", "onryo", "knight"],
-            unique: ["nurse", "huntress", "hag", "spirit", "singularity", "good_guy"],
+            unique: ["nurse", "huntress", "hag", "spirit", "singularity", "good_guy", "lich"],
             mixed: ["hillbilly", "plague", "deathslinger", "blight", "twins", "cenobite", "artist", "dredge", "mastermind", "skull_merchant", "xenomorph", "trickster"]
         }
     },
@@ -356,7 +413,7 @@ const questionsData = [
         groups: {
             easy: ["trapper", "wraith", "shape", "nightmare", "pig", "clown", "legion", "onryo", "skull_merchant"],
             medium: ["doctor", "spirit", "ghostface", "demogorgon", "oni", "deathslinger", "nemesis", "artist", "dredge", "knight", "cannibal", "xenomorph", "good_guy"],
-            hard: ["hillbilly", "nurse", "huntress", "hag", "plague", "executioner", "blight", "twins", "trickster", "cenobite", "mastermind", "singularity"]
+            hard: ["hillbilly", "nurse", "huntress", "hag", "plague", "executioner", "blight", "twins", "trickster", "cenobite", "mastermind", "singularity", "lich"]
         }
     },
     {
@@ -369,7 +426,7 @@ const questionsData = [
         groups: {
             single: ["trapper", "wraith", "nurse", "huntress", "shape", "cannibal", "spirit", "legion", "ghostface", "deathslinger", "blight", "mastermind", "good_guy"],
             mix: ["hillbilly", "clown", "oni", "executioner", "trickster", "artist", "xenomorph"],
-            many: ["hag", "doctor", "nightmare", "pig", "plague", "demogorgon", "twins", "nemesis", "cenobite", "onryo", "dredge", "knight", "skull_merchant", "singularity"]
+            many: ["hag", "doctor", "nightmare", "pig", "plague", "demogorgon", "twins", "nemesis", "cenobite", "onryo", "dredge", "knight", "skull_merchant", "singularity", "lich"]
         }
     },
     {
@@ -383,7 +440,7 @@ const questionsData = [
         groups: {
             low: ["wraith", "shape", "nightmare", "pig", "legion", "onryo", "skull_merchant"],
             medium: ["trapper", "hag", "doctor", "clown", "spirit", "ghostface", "demogorgon", "oni", "trickster", "nemesis", "cannibal", "dredge", "knight"],
-            high: ["hillbilly", "nurse", "huntress", "plague", "deathslinger", "executioner", "blight", "twins", "cenobite", "artist", "mastermind", "singularity", "xenomorph", "good_guy"]
+            high: ["hillbilly", "nurse", "huntress", "plague", "deathslinger", "executioner", "blight", "twins", "cenobite", "artist", "mastermind", "singularity", "xenomorph", "good_guy", "lich"]
         }
     },
     {
@@ -396,7 +453,7 @@ const questionsData = [
         groups: {
             chill: ["trapper", "wraith", "shape", "hag", "nightmare", "pig", "legion", "onryo", "knight", "skull_merchant"],
             medium: ["doctor", "cannibal", "clown", "spirit", "ghostface", "demogorgon", "oni", "plague", "artist", "dredge", "good_guy"],
-            hard: ["hillbilly", "nurse", "huntress", "deathslinger", "executioner", "blight", "twins", "trickster", "nemesis", "cenobite", "mastermind", "singularity", "xenomorph"]
+            hard: ["hillbilly", "nurse", "huntress", "deathslinger", "executioner", "blight", "twins", "trickster", "nemesis", "cenobite", "mastermind", "singularity", "xenomorph", "lich"]
         }
     },
     {
@@ -408,7 +465,7 @@ const questionsData = [
         ],
         groups: {
             strong: ["shape", "hag", "doctor", "plague", "blight", "huntress", "spirit", "cenobite"],
-            medium: ["trapper", "wraith", "pig", "clown", "legion", "demogorgon", "oni", "twins", "trickster", "hillbilly", "deathslinger", "artist", "onryo", "ghostface", "dredge", "knight", "skull_merchant", "nurse", "cannibal", "singularity", "xenomorph", "good_guy"],
+            medium: ["trapper", "wraith", "pig", "clown", "legion", "demogorgon", "oni", "twins", "trickster", "hillbilly", "deathslinger", "artist", "onryo", "ghostface", "dredge", "knight", "skull_merchant", "nurse", "cannibal", "singularity", "xenomorph", "good_guy", "lich"],
             bad: ["nightmare", "executioner", "nemesis", "mastermind"]
         }
     },
@@ -420,7 +477,7 @@ const questionsData = [
         ],
         groups: {
             good: ["hillbilly", "hag", "cannibal", "clown", "legion", "plague", "blight", "nemesis", "artist", "onryo", "cenobite", "deathslinger", "demogorgon", "shape", "xenomorph"],
-            medium: ["trapper", "nurse", "pig", "spirit", "trickster", "knight", "doctor", "ghostface", "good_guy", "nightmare", "twins"],
+            medium: ["trapper", "nurse", "pig", "spirit", "trickster", "knight", "doctor", "ghostface", "good_guy", "nightmare", "twins", "lich"],
             bad: ["wraith", "huntress", "oni", "executioner", "mastermind", "singularity", "skull_merchant", "dredge"]
         }
     },
@@ -435,8 +492,8 @@ const questionsData = [
             { text: "I don’t have a preference.", points: { setup: 100, stealth: 100, chaser: 100, ranged: 100, mix: 100 } }
         ],
         groups: {
-            chaser: ["hillbilly", "nurse", "cannibal", "clown", "spirit", "legion", "oni", "blight", "mastermind", "good_guy"],
-            mix: ["doctor", "nightmare", "pig", "plague", "demogorgon", "executioner", "twins", "nemesis", "cenobite", "dredge", "knight", "xenomorph", "singularity", "onryo"],
+            chaser: ["hillbilly", "nurse", "cannibal", "clown", "spirit", "legion", "oni", "blight", "mastermind", "good_guy", "lich"],
+            mix: ["doctor", "nightmare", "pig", "plague", "demogorgon", "executioner", "twins", "nemesis", "cenobite", "dredge", "knight", "xenomorph", "singularity", "onryo", "lich"],
             ranged: ["huntress", "deathslinger", "trickster", "artist"],
             stealth: ["wraith", "shape", "ghostface"],
             setup: ["trapper", "hag", "skull_merchant"],
@@ -470,9 +527,9 @@ const questionsData = [
             { text: "I don’t have a secondary playstyle.", points: { setup: 50, stealth: 50, chaser: 50, ranged: 50, mix: 50 } }
         ],
         groups: {
-            chaser: ["hillbilly", "nurse", "cannibal", "clown", "spirit", "legion", "oni", "blight", "mastermind", "good_guy"],
+            chaser: ["hillbilly", "nurse", "cannibal", "clown", "spirit", "legion", "oni", "blight", "mastermind", "good_guy", "lich"],
             mix: ["doctor", "nightmare", "pig", "plague", "demogorgon", "executioner", "twins", "nemesis", "cenobite", "dredge", "knight", "xenomorph", "singularity", "onryo"],
-            ranged: ["huntress", "deathslinger", "trickster", "artist"],
+            ranged: ["huntress", "deathslinger", "trickster", "artist", "lich"],
             stealth: ["wraith", "shape", "ghostface"],
             setup: ["trapper", "hag", "skull_merchant"],
             shape: ["shape"],
@@ -597,7 +654,7 @@ function calculateScores() {
         }
     });
 
-    // Convert to array and sort
+    // Convert to array, sort, and only show available killers
     let sortedKillers = Object.keys(scores).map(kId => {
         return {
             id: kId,
@@ -606,7 +663,7 @@ function calculateScores() {
         };
     }).sort((a, b) => b.score - a.score); // Descending
 
-    return sortedKillers;
+    return sortedKillers.filter(k => k.available === true);
 }
 
 function showResults() {
