@@ -268,10 +268,10 @@ const killersData = {
         licensed: false,
         available: true,
         play_tips: [
-            "Divide and conquer — let guards do their thing for free map pressure while you chase elsewhere",
-            "Sander's Strength (Carnifex) breaks pallets almost instantly — always have him ready during chases",
-            "Aura/info perks are incredible on Knight since he can be in two places at once",
-            "ANY active guard counts as ability usage, disabling Bloodlust — but Rapid Brutality works as a substitute",
+            "Divide and Conquer, Knight's guards do better when you let them do their thing. (Free Pressure!)",
+            "Sander's Strength, The Carnifex breaks things almost instantly, always have him ready during chase!",
+            "Info is Key, Running Aura/Info perks on Knight is Great because he can be in two places at once!",
+            "No Bloodlust? When you have ANY guard active, it counts as ability usage. So you can't have bloodlust... Rapid Brutality however...",
         ],
         background: "backgrounds/K30_Background.png"
     },
