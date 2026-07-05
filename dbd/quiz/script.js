@@ -716,7 +716,7 @@ function showResults() {
         // Dynamic background style if image exists
         let bgStyle = "background-color: #2b2b2b;";
         if (k.background) {
-            bgStyle = `background: linear-gradient(to right, #2b2b2b 20%, rgba(43,43,43,0.8)), url('${k.background}'); background-size: cover; background-position: right top;`;
+            bgStyle = `background-color: #2b2b2b; background-image: linear-gradient(90deg, rgba(10, 10, 10, 0.35) 0%, rgba(10, 10, 10, 0.12) 45%, rgba(10, 10, 10, 0.25) 100%), url('${k.background}'); background-size: cover; background-position: center; background-repeat: no-repeat;`;
         }
 
         li.style.cssText = `
@@ -728,6 +728,8 @@ function showResults() {
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
             position: relative;
             overflow: hidden;
+            min-height: 180px;
+            background-blend-mode: normal, normal;
         `;
 
         li.innerHTML = `

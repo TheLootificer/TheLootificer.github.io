@@ -142,6 +142,7 @@
     text-align: left;
     position: relative;
     transition: transform 0.2s;
+    background-blend-mode: multiply;
 }
 
 .result-item:hover {
