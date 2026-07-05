@@ -326,7 +326,7 @@ const killersData = {
     dark_lord: {
         name: "The Dark Lord",
         wiki_link: "https://deadbydaylight.wiki.gg/wiki/Dracula",
-        description: "",
+        description: "A shapeshifting Killer, able to switch between three forms using his power, Shapeshifting. In his Vampire form, Dracula hurls columns of hellfire that pierce through obstacles, threatening Survivors from a distance. His Wolf form tracks Survivors through scent orbs and can pounce to break pallets or injure in chase. His Bat form grants remarkable mobility, allowing him to teleport to vaults and ignore pallets and windows entirely. While each form is straightforward on its own, mastering the right transformation for every situation and chaining his abilities together efficiently gives him an enormous skill ceiling. His versatile toolkit makes him a constant threat across the entire map, though Survivors who can anticipate his transformations will find opportunities to outplay him.",
         dlc: true,
         licensed: true,
         available: true,
@@ -335,25 +335,25 @@ const killersData = {
     houndmaster: {
         name: "The Houndmaster",
         wiki_link: "https://deadbydaylight.wiki.gg/wiki/Portia_Maye",
-        description: "",
+        description: "A beast-master Killer, able to command her loyal hound Snug using her power. In Search Mode, Snug sprints to a chosen objective, detecting nearby Survivors with Houndsense and revealing them through Killer Instinct while granting the Houndmaster a ramping speed boost when following his trail. In Chase Mode, Snug charges in a straight line, capable of curving around obstacles and vaulting windows, and can be redirected manually with precise timing. A successful bite latches onto the Survivor and drags them toward the Houndmaster, unless they are vaulting. While her power is hampered by occasionally unreliable AI pathing, skilled players who can chain Search Mode mid-chase for surprise speed bursts and nail their redirects will find an enormous skill ceiling waiting to be mastered. Her kit is fun and dynamic, though her add-ons and perks are unremarkable.",
         dlc: true,
         licensed: false,
         available: true,
         background: "backgrounds/T_UI_K38_Background.png"
-    },
+},
     ghoul: {
         name: "The Ghoul",
         wiki_link: "https://deadbydaylight.wiki.gg/wiki/Ken_Kaneki",
         description: "",
         dlc: true,
         licensed: true,
-        available: true,
+        available: false,
         background: "backgrounds/T_UI_K39_Background.png"
     },
     animatronic: {
         name: "The Animatronic",
         wiki_link: "https://deadbydaylight.wiki.gg/wiki/William_Afton",
-        description: "",
+        description: "A hybrid Killer, combining map-wide teleportation through Security Doors with a deadly ranged Axe attack. His Security Doors allow him to traverse the map rapidly and even jumpscare Survivors using the same door, granting an instant grab. Survivors can also use these doors, wielding cameras to reveal his location. His Axe sticks into surfaces on impact, revealing nearby Survivors through Killer Instinct, and those struck become Broken until the Axe is removed. Survivors stuck with an Axe can also be jumpscared and picked up. While his kit is straightforward, the variety of tools at his disposal and his transformative add-ons allow for multiple distinct playstyles, making him a remarkably flexible and engaging Killer.",
         dlc: true,
         licensed: true,
         available: true,
@@ -365,7 +365,7 @@ const killersData = {
         description: "",
         dlc: true,
         licensed: false,
-        available: true,
+        available: false,
         background: "backgrounds/T_UI_K41_Background.png"
     },
     first: {
@@ -399,8 +399,8 @@ const questionsData = [
         ],
         groups: {
             standard: ["trapper", "wraith", "shape", "doctor", "cannibal", "nightmare", "pig", "clown", "legion", "ghostface", "demogorgon", "oni", "executioner", "nemesis", "onryo", "knight"],
-            unique: ["nurse", "huntress", "hag", "spirit", "singularity", "good_guy", "lich"],
-            mixed: ["hillbilly", "plague", "deathslinger", "blight", "twins", "cenobite", "artist", "dredge", "mastermind", "skull_merchant", "xenomorph", "trickster"]
+            unique: ["nurse", "huntress", "hag", "spirit", "singularity", "good_guy", "lich", "houndmaster"],
+            mixed: ["hillbilly", "plague", "deathslinger", "blight", "twins", "cenobite", "artist", "dredge", "mastermind", "skull_merchant", "xenomorph", "trickster", "dark_lord", "animatronic"]
         }
     },
     {
@@ -412,8 +412,8 @@ const questionsData = [
         ],
         groups: {
             easy: ["trapper", "wraith", "shape", "nightmare", "pig", "clown", "legion", "onryo", "skull_merchant"],
-            medium: ["doctor", "spirit", "ghostface", "demogorgon", "oni", "deathslinger", "nemesis", "artist", "dredge", "knight", "cannibal", "xenomorph", "good_guy"],
-            hard: ["hillbilly", "nurse", "huntress", "hag", "plague", "executioner", "blight", "twins", "trickster", "cenobite", "mastermind", "singularity", "lich"]
+            medium: ["doctor", "spirit", "ghostface", "demogorgon", "oni", "deathslinger", "nemesis", "artist", "dredge", "knight", "cannibal", "xenomorph", "good_guy", "dark_lord", "animatronic"],
+            hard: ["hillbilly", "nurse", "huntress", "hag", "plague", "executioner", "blight", "twins", "trickster", "cenobite", "mastermind", "singularity", "lich", "houndmaster"]
         }
     },
     {
@@ -425,8 +425,8 @@ const questionsData = [
         ],
         groups: {
             single: ["trapper", "wraith", "nurse", "huntress", "shape", "cannibal", "spirit", "legion", "ghostface", "deathslinger", "blight", "mastermind", "good_guy"],
-            mix: ["hillbilly", "clown", "oni", "executioner", "trickster", "artist", "xenomorph"],
-            many: ["hag", "doctor", "nightmare", "pig", "plague", "demogorgon", "twins", "nemesis", "cenobite", "onryo", "dredge", "knight", "skull_merchant", "singularity", "lich"]
+            mix: ["hillbilly", "clown", "oni", "executioner", "trickster", "artist", "xenomorph", "houndmaster", "animatronic"],
+            many: ["hag", "doctor", "nightmare", "pig", "plague", "demogorgon", "twins", "nemesis", "cenobite", "onryo", "dredge", "knight", "skull_merchant", "singularity", "lich", "dark_lord"]
         }
     },
     {
@@ -439,8 +439,8 @@ const questionsData = [
         ],
         groups: {
             low: ["wraith", "shape", "nightmare", "pig", "legion", "onryo", "skull_merchant"],
-            medium: ["trapper", "hag", "doctor", "clown", "spirit", "ghostface", "demogorgon", "oni", "trickster", "nemesis", "cannibal", "dredge", "knight"],
-            high: ["hillbilly", "nurse", "huntress", "plague", "deathslinger", "executioner", "blight", "twins", "cenobite", "artist", "mastermind", "singularity", "xenomorph", "good_guy", "lich"]
+            medium: ["trapper", "hag", "doctor", "clown", "spirit", "ghostface", "demogorgon", "oni", "trickster", "nemesis", "cannibal", "dredge", "knight", "animatronic"],
+            high: ["hillbilly", "nurse", "huntress", "plague", "deathslinger", "executioner", "blight", "twins", "cenobite", "artist", "mastermind", "singularity", "xenomorph", "good_guy", "lich", "dark_lord", "houndmaster"]
         }
     },
     {
@@ -452,8 +452,8 @@ const questionsData = [
         ],
         groups: {
             chill: ["trapper", "wraith", "shape", "hag", "nightmare", "pig", "legion", "onryo", "knight", "skull_merchant"],
-            medium: ["doctor", "cannibal", "clown", "spirit", "ghostface", "demogorgon", "oni", "plague", "artist", "dredge", "good_guy"],
-            hard: ["hillbilly", "nurse", "huntress", "deathslinger", "executioner", "blight", "twins", "trickster", "nemesis", "cenobite", "mastermind", "singularity", "xenomorph", "lich"]
+            medium: ["doctor", "cannibal", "clown", "spirit", "ghostface", "demogorgon", "oni", "plague", "artist", "dredge", "good_guy", "dark_lord", "animatronic"],
+            hard: ["hillbilly", "nurse", "huntress", "deathslinger", "executioner", "blight", "twins", "trickster", "nemesis", "cenobite", "mastermind", "singularity", "xenomorph", "lich", "houndmaster"]
         }
     },
     {
@@ -464,9 +464,9 @@ const questionsData = [
             { text: "I don’t mind either way.", points: { strong: 50, medium: 50, bad: 50 } }
         ],
         groups: {
-            strong: ["shape", "hag", "doctor", "plague", "blight", "huntress", "spirit", "cenobite"],
-            medium: ["trapper", "wraith", "pig", "clown", "legion", "demogorgon", "oni", "twins", "trickster", "hillbilly", "deathslinger", "artist", "onryo", "ghostface", "dredge", "knight", "skull_merchant", "nurse", "cannibal", "singularity", "xenomorph", "good_guy", "lich"],
-            bad: ["nightmare", "executioner", "nemesis", "mastermind"]
+            strong: ["shape", "hag", "doctor", "plague", "blight", "huntress", "spirit", "cenobite", "animatronic"],
+            medium: ["trapper", "wraith", "pig", "clown", "legion", "demogorgon", "oni", "twins", "trickster", "hillbilly", "deathslinger", "artist", "onryo", "ghostface", "dredge", "knight", "skull_merchant", "nurse", "cannibal", "singularity", "xenomorph", "good_guy", "lich", "dark_lord"],
+            bad: ["nightmare", "executioner", "nemesis", "mastermind", "houndmaster"]
         }
     },
     {
@@ -477,7 +477,7 @@ const questionsData = [
         ],
         groups: {
             good: ["hillbilly", "hag", "cannibal", "clown", "legion", "plague", "blight", "nemesis", "artist", "onryo", "cenobite", "deathslinger", "demogorgon", "shape", "xenomorph"],
-            medium: ["trapper", "nurse", "pig", "spirit", "trickster", "knight", "doctor", "ghostface", "good_guy", "nightmare", "twins", "lich"],
+            medium: ["trapper", "nurse", "pig", "spirit", "trickster", "knight", "doctor", "ghostface", "good_guy", "nightmare", "twins", "lich", "dark_lord", "houndmaster", "animatronic"],
             bad: ["wraith", "huntress", "oni", "executioner", "mastermind", "singularity", "skull_merchant", "dredge"]
         }
     },
@@ -492,11 +492,11 @@ const questionsData = [
             { text: "I don’t have a preference.", points: { setup: 100, stealth: 100, chaser: 100, ranged: 100, mix: 100 } }
         ],
         groups: {
-            chaser: ["hillbilly", "nurse", "cannibal", "clown", "spirit", "legion", "oni", "blight", "mastermind", "good_guy", "lich"],
-            mix: ["doctor", "nightmare", "pig", "plague", "demogorgon", "executioner", "twins", "nemesis", "cenobite", "dredge", "knight", "xenomorph", "singularity", "onryo", "lich"],
-            ranged: ["huntress", "deathslinger", "trickster", "artist"],
-            stealth: ["wraith", "shape", "ghostface"],
-            setup: ["trapper", "hag", "skull_merchant"],
+            chaser: ["hillbilly", "nurse", "cannibal", "clown", "spirit", "legion", "oni", "blight", "mastermind", "good_guy", "lich", "dark_lord"],
+            mix: ["doctor", "nightmare", "pig", "plague", "demogorgon", "executioner", "twins", "nemesis", "cenobite", "dredge", "knight", "xenomorph", "singularity", "onryo", "lich", "dark_lord", "houndmaster", "animatronic"],
+            ranged: ["huntress", "deathslinger", "trickster", "artist", "animatronic"],
+            stealth: ["wraith", "shape", "ghostface", "animatronic"],
+            setup: ["trapper", "hag", "skull_merchant", "houndmaster"],
             shape: ["shape"],
             pig: ["pig"],
             deathslinger: ["deathslinger"],
@@ -529,9 +529,9 @@ const questionsData = [
         groups: {
             chaser: ["hillbilly", "nurse", "cannibal", "clown", "spirit", "legion", "oni", "blight", "mastermind", "good_guy", "lich"],
             mix: ["doctor", "nightmare", "pig", "plague", "demogorgon", "executioner", "twins", "nemesis", "cenobite", "dredge", "knight", "xenomorph", "singularity", "onryo"],
-            ranged: ["huntress", "deathslinger", "trickster", "artist", "lich"],
-            stealth: ["wraith", "shape", "ghostface"],
-            setup: ["trapper", "hag", "skull_merchant"],
+            ranged: ["huntress", "deathslinger", "trickster", "artist", "lich", "dark_lord", "animatronic"],
+            stealth: ["wraith", "shape", "ghostface", "dark_lord", "animatronic"],
+            setup: ["trapper", "hag", "skull_merchant", "houndmaster"],
             shape: ["shape"],
             pig: ["pig"],
             deathslinger: ["deathslinger"],
