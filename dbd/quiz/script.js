@@ -177,7 +177,7 @@ const killersData = {
         dlc: true,
         licensed: true,
         available: true,
-        background: "backgrounds/K20_Background.png"
+        background: "backgrounds/K20_storeBackground.png"
     },
     blight: {
         name: "The Blight",
@@ -186,7 +186,7 @@ const killersData = {
         dlc: true,
         licensed: false,
         available: true,
-        background: "backgrounds/K21_Background.png"
+        background: "backgrounds/K21_storeBackground.png"
     },
     twins: {
         name: "The Twins",
@@ -195,7 +195,7 @@ const killersData = {
         dlc: true,
         licensed: false,
         available: true,
-        background: "backgrounds/K22_Background.png"
+        background: "backgrounds/K22_storeBackground.png"
     },
     trickster: {
         name: "The Trickster",
@@ -204,7 +204,7 @@ const killersData = {
         dlc: true,
         licensed: false,
         available: true,
-        background: "backgrounds/K23_Background.png"
+        background: "backgrounds/K23_storeBackground.png"
     },
     nemesis: {
         name: "The Nemesis",
@@ -213,7 +213,7 @@ const killersData = {
         dlc: true,
         licensed: true,
         available: true,
-        background: "backgrounds/K24_Background.png"
+        background: "backgrounds/K24_storeBackground.png"
     },
     cenobite: {
         name: "The Cenobite",
@@ -222,7 +222,7 @@ const killersData = {
         dlc: true,
         licensed: true,
         available: false,
-        background: "backgrounds/K25_Background.png"
+        background: "backgrounds/K25_storeBackground.png"
     },
     artist: {
         name: "The Artist",
@@ -231,7 +231,7 @@ const killersData = {
         dlc: true,
         licensed: false,
         available: true,
-        background: "backgrounds/K26_Background.png"
+        background: "backgrounds/K26_storeBackground.png"
     },
     onryo: {
         name: "The Onryō",
@@ -240,7 +240,7 @@ const killersData = {
         dlc: true,
         licensed: true,
         available: true,
-        background: "backgrounds/K27_Background.png"
+        background: "backgrounds/K27_storeBackground.png"
     },
     dredge: {
         name: "The Dredge",
@@ -249,7 +249,7 @@ const killersData = {
         dlc: true,
         licensed: false,
         available: true,
-        background: "backgrounds/K28_Background.png"
+        background: "backgrounds/K28_storeBackground.png"
     },
     mastermind: {
         name: "The Mastermind",
@@ -258,7 +258,7 @@ const killersData = {
         dlc: true,
         licensed: true,
         available: true,
-        background: "backgrounds/K29_Background.png"
+        background: "backgrounds/K29_storeBackground.png"
     },
     knight: {
         name: "The Knight",
@@ -273,7 +273,7 @@ const killersData = {
             "Info is Key, Running Aura/Info perks on Knight is Great because he can be in two places at once!",
             "No Bloodlust? When you have ANY guard active, it counts as ability usage. So you can't have bloodlust... Rapid Brutality however...",
         ],
-        background: "backgrounds/K30_Background.png"
+        background: "backgrounds/K30_storeBackground.png"
     },
     skull_merchant: {
         name: "The Skull Merchant",
@@ -282,7 +282,7 @@ const killersData = {
         dlc: true,
         licensed: false,
         available: true,
-        background: "backgrounds/K31_Background.png"
+        background: "backgrounds/K31_storeBackground.png"
     },
     singularity: {
         name: "The Singularity",
@@ -291,7 +291,7 @@ const killersData = {
         dlc: true,
         licensed: false,
         available: true,
-        background: "backgrounds/K32_Background.png"
+        background: "backgrounds/K32_storeBackground.png"
     },
     xenomorph: {
         name: "The Xenomorph",
@@ -300,7 +300,7 @@ const killersData = {
         dlc: true,
         licensed: true,
         available: true,
-        background: "backgrounds/K33_Background.png"
+        background: "backgrounds/K33_storeBackground.png"
     },
     good_guy: {
         name: "The Good Guy",
@@ -309,7 +309,7 @@ const killersData = {
         dlc: true,
         licensed: true,
         available: true,
-        background: "backgrounds/K34_Background.png"
+        background: "backgrounds/K34_storeBackground.png"
     },
     unknown: {
         name: "The Unknown",
@@ -318,7 +318,7 @@ const killersData = {
         dlc: true,
         licensed: false,
         available: true,
-        background: "backgrounds/K35_Background.png"
+        background: "backgrounds/K35_storeBackground.png"
     },
     lich: {
         name: "The Lich",
@@ -327,7 +327,7 @@ const killersData = {
         dlc: true,
         licensed: true,
         available: true,
-        background: "backgrounds/K36_Background.png"
+        background: "backgrounds/K36_storeBackground.png"
     },
     dark_lord: {
         name: "The Dark Lord",
@@ -336,7 +336,7 @@ const killersData = {
         dlc: true,
         licensed: true,
         available: true,
-        background: "backgrounds/K37_Background.png"
+        background: "backgrounds/K37_storeBackground.png"
     },
     houndmaster: {
         name: "The Houndmaster",
@@ -345,7 +345,7 @@ const killersData = {
         dlc: true,
         licensed: false,
         available: true,
-        background: "backgrounds/T_UI_K38_Background.png"
+        background: "backgrounds/T_UI_K38_storeBackground.png"
     },
     ghoul: {
         name: "The Ghoul",
@@ -363,7 +363,7 @@ const killersData = {
         dlc: true,
         licensed: true,
         available: true,
-        background: "backgrounds/T_UI_K40_Background.png"
+        background: "backgrounds/T_UI_K40_storeBackground.png"
     },
     krasue: {
         name: "The Krasue",
@@ -381,7 +381,7 @@ const killersData = {
         dlc: true,
         licensed: true,
         available: true,
-        background: "backgrounds/T_UI_K42_Background.png"
+        background: "backgrounds/T_UI_K42_storeBackground.png"
     },
     slasher: {
         name: "The Slasher",
@@ -390,7 +390,7 @@ const killersData = {
         dlc: true,
         licensed: true,
         available: true,
-        background: "backgrounds/T_UI_K43_Background.png"
+        background: "backgrounds/T_UI_K43_storeBackground.png"
     },
 };
 
@@ -716,7 +716,7 @@ function showResults() {
         // Dynamic background style if image exists
         let bgStyle = "background-color: #2b2b2b;";
         if (k.background) {
-            bgStyle = `background-color: #2b2b2b; background-image: linear-gradient(90deg, rgba(10, 10, 10, 0.35) 0%, rgba(10, 10, 10, 0.12) 45%, rgba(10, 10, 10, 0.25) 100%), url('${k.background}'); background-size: cover; background-position: center; background-repeat: no-repeat;`;
+            bgStyle = `background-color: #2b2b2b; background-image: linear-gradient(90deg, rgba(10, 10, 10, 0.35) 0%, rgba(10, 10, 10, 0.12) 45%, rgba(10, 10, 10, 0.25) 100%), url('${k.background}'); background-size: cover; background-position: top center; background-repeat: no-repeat;`;
         }
 
         li.style.cssText = `
