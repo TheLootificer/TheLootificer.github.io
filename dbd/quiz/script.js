@@ -267,6 +267,12 @@ const killersData = {
         dlc: true,
         licensed: false,
         available: true,
+        play_tips: [
+            "Divide and conquer — let guards do their thing for free map pressure while you chase elsewhere",
+            "Sander's Strength (Carnifex) breaks pallets almost instantly — always have him ready during chases",
+            "Aura/info perks are incredible on Knight since he can be in two places at once",
+            "ANY active guard counts as ability usage, disabling Bloodlust — but Rapid Brutality works as a substitute",
+        ],
         background: "backgrounds/K30_Background.png"
     },
     skull_merchant: {
@@ -308,7 +314,7 @@ const killersData = {
     unknown: {
         name: "The Unknown",
         wiki_link: "https://deadbydaylight.wiki.gg/wiki/The_Unknown",
-        description: "A mysterious Killer, able to use his power, The Unknown’s Shadow, to create illusions of himself that can deceive Survivors. The Unknown is a unique Killer played in third person with stealth elements and a versatile dash attack. Your success with him will depend on your ability to land hits consistently and manage the power cooldown between uses.",
+        description: "A mysterious Killer, able to launch bouncing projectiles and teleport between Hallucinations using his power, UVX. His shots bounce once before exploding on the second impact, requiring both precision and skill to land effectively. Direct hits Weaken Survivors, and a second hit from a different shot downs them while also inflicting Hindered. The Unknown can deploy up to four Hallucinations across the map, which he can teleport to for map pressure, though they cannot be placed near objectives or other Hallucinations. Survivors can dispel Hallucinations and clear their Weakened state by looking directly at him. While his explosive AoE opens up devastating trick shots through walls, his reliance on unpredictable setups and imprecise ranged attacks can make him inconsistent. Success demands both precision and adaptability.",
         dlc: true,
         licensed: false,
         available: true,
@@ -340,7 +346,7 @@ const killersData = {
         licensed: false,
         available: true,
         background: "backgrounds/T_UI_K38_Background.png"
-},
+    },
     ghoul: {
         name: "The Ghoul",
         wiki_link: "https://deadbydaylight.wiki.gg/wiki/Ken_Kaneki",
@@ -371,7 +377,7 @@ const killersData = {
     first: {
         name: "The First",
         wiki_link: "https://deadbydaylight.wiki.gg/wiki/Henry_Creel",
-        description: "",
+        description: "An oppressive Killer, wielding the power of the Upside Down to dominate the Trial. His Vine Attack is a ranged AoE strike that can hit through walls and floors, dealing damage when charged in World Breaker Mode. By entering the Upside Down, he traverses the map at incredible speed while Undetectable, exiting with a devastating Undergate attack that is difficult to avoid. World Breaker activates when a Survivor accumulates charges, entering two distinct phases that dramatically increase his lethality, during which death-hook Survivors with full charges can be Mori'd. While his power has many moving parts and requires precise timing, his lack of complex techs keeps his skill ceiling reasonable. His add-ons are versatile but confusing, and his perks, while niche, round out a kit that is as oppressive as it is formidable.",
         dlc: true,
         licensed: true,
         available: true,
@@ -380,7 +386,7 @@ const killersData = {
     slasher: {
         name: "The Slasher",
         wiki_link: "https://deadbydaylight.wiki.gg/wiki/Jason_Voorhees",
-        description: "",
+        description: "A ranged stealth Killer, combining relentless map-wide pressure with deadly precision. Using his power, Omnipresent Evil, Jason throws Spikes that knock Survivors back and inflict Broken until removed. Survivors downed by a Spike can be pinned to nearby walls, and those on death hook can be Mori'd outright. Spikes are reloaded from Scrap Piles or Hooks, which become temporarily unusable after. His Jumpscare ability lets him teleport to Vaults, Pallets, or Breakable Walls — breaking them and granting Haste while causing nearby Survivors to scream and reveal themselves through Killer Instinct. During Omnipresent Evil, Survivor footprints are visible, though they can crouch to avoid detection. While his kit is straightforward, landing trick shots and mastering teleport timing requires immense precision and experience, placing his skill ceiling among the highest of all ranged Killers.",
         dlc: true,
         licensed: true,
         available: true,
@@ -399,8 +405,8 @@ const questionsData = [
         ],
         groups: {
             standard: ["trapper", "wraith", "shape", "doctor", "cannibal", "nightmare", "pig", "clown", "legion", "ghostface", "demogorgon", "oni", "executioner", "nemesis", "onryo", "knight"],
-            unique: ["nurse", "huntress", "hag", "spirit", "singularity", "good_guy", "lich", "houndmaster"],
-            mixed: ["hillbilly", "plague", "deathslinger", "blight", "twins", "cenobite", "artist", "dredge", "mastermind", "skull_merchant", "xenomorph", "trickster", "dark_lord", "animatronic"]
+            unique: ["nurse", "huntress", "hag", "spirit", "singularity", "good_guy", "lich", "houndmaster", "first"],
+            mixed: ["hillbilly", "plague", "deathslinger", "blight", "twins", "cenobite", "artist", "dredge", "mastermind", "skull_merchant", "xenomorph", "trickster", "dark_lord", "animatronic", "slasher", "unknown"]
         }
     },
     {
@@ -413,7 +419,7 @@ const questionsData = [
         groups: {
             easy: ["trapper", "wraith", "shape", "nightmare", "pig", "clown", "legion", "onryo", "skull_merchant"],
             medium: ["doctor", "spirit", "ghostface", "demogorgon", "oni", "deathslinger", "nemesis", "artist", "dredge", "knight", "cannibal", "xenomorph", "good_guy", "dark_lord", "animatronic"],
-            hard: ["hillbilly", "nurse", "huntress", "hag", "plague", "executioner", "blight", "twins", "trickster", "cenobite", "mastermind", "singularity", "lich", "houndmaster"]
+            hard: ["hillbilly", "nurse", "huntress", "hag", "plague", "executioner", "blight", "twins", "trickster", "cenobite", "mastermind", "singularity", "lich", "houndmaster", "first", "slasher", "unknown"]
         }
     },
     {
@@ -425,8 +431,8 @@ const questionsData = [
         ],
         groups: {
             single: ["trapper", "wraith", "nurse", "huntress", "shape", "cannibal", "spirit", "legion", "ghostface", "deathslinger", "blight", "mastermind", "good_guy"],
-            mix: ["hillbilly", "clown", "oni", "executioner", "trickster", "artist", "xenomorph", "houndmaster", "animatronic"],
-            many: ["hag", "doctor", "nightmare", "pig", "plague", "demogorgon", "twins", "nemesis", "cenobite", "onryo", "dredge", "knight", "skull_merchant", "singularity", "lich", "dark_lord"]
+            mix: ["hillbilly", "clown", "oni", "executioner", "trickster", "artist", "xenomorph", "houndmaster", "animatronic", "slasher", "unknown"],
+            many: ["hag", "doctor", "nightmare", "pig", "plague", "demogorgon", "twins", "nemesis", "cenobite", "onryo", "dredge", "knight", "skull_merchant", "singularity", "lich", "dark_lord", "first"]
         }
     },
     {
@@ -439,8 +445,8 @@ const questionsData = [
         ],
         groups: {
             low: ["wraith", "shape", "nightmare", "pig", "legion", "onryo", "skull_merchant"],
-            medium: ["trapper", "hag", "doctor", "clown", "spirit", "ghostface", "demogorgon", "oni", "trickster", "nemesis", "cannibal", "dredge", "knight", "animatronic"],
-            high: ["hillbilly", "nurse", "huntress", "plague", "deathslinger", "executioner", "blight", "twins", "cenobite", "artist", "mastermind", "singularity", "xenomorph", "good_guy", "lich", "dark_lord", "houndmaster"]
+            medium: ["trapper", "hag", "doctor", "clown", "spirit", "ghostface", "demogorgon", "oni", "trickster", "nemesis", "cannibal", "dredge", "knight", "animatronic", "first"],
+            high: ["hillbilly", "nurse", "huntress", "plague", "deathslinger", "executioner", "blight", "twins", "cenobite", "artist", "mastermind", "singularity", "xenomorph", "good_guy", "lich", "dark_lord", "houndmaster", "slasher", "unknown"]
         }
     },
     {
@@ -452,8 +458,8 @@ const questionsData = [
         ],
         groups: {
             chill: ["trapper", "wraith", "shape", "hag", "nightmare", "pig", "legion", "onryo", "knight", "skull_merchant"],
-            medium: ["doctor", "cannibal", "clown", "spirit", "ghostface", "demogorgon", "oni", "plague", "artist", "dredge", "good_guy", "dark_lord", "animatronic"],
-            hard: ["hillbilly", "nurse", "huntress", "deathslinger", "executioner", "blight", "twins", "trickster", "nemesis", "cenobite", "mastermind", "singularity", "xenomorph", "lich", "houndmaster"]
+            medium: ["doctor", "cannibal", "clown", "spirit", "ghostface", "demogorgon", "oni", "plague", "artist", "dredge", "good_guy", "dark_lord", "animatronic", "first"],
+            hard: ["hillbilly", "nurse", "huntress", "deathslinger", "executioner", "blight", "twins", "trickster", "nemesis", "cenobite", "mastermind", "singularity", "xenomorph", "lich", "houndmaster", "slasher", "unknown"]
         }
     },
     {
@@ -465,7 +471,7 @@ const questionsData = [
         ],
         groups: {
             strong: ["shape", "hag", "doctor", "plague", "blight", "huntress", "spirit", "cenobite", "animatronic"],
-            medium: ["trapper", "wraith", "pig", "clown", "legion", "demogorgon", "oni", "twins", "trickster", "hillbilly", "deathslinger", "artist", "onryo", "ghostface", "dredge", "knight", "skull_merchant", "nurse", "cannibal", "singularity", "xenomorph", "good_guy", "lich", "dark_lord"],
+            medium: ["trapper", "wraith", "pig", "clown", "legion", "demogorgon", "oni", "twins", "trickster", "hillbilly", "deathslinger", "artist", "onryo", "ghostface", "dredge", "knight", "skull_merchant", "nurse", "cannibal", "singularity", "xenomorph", "good_guy", "unknown", "lich", "dark_lord", "first", "slasher"],
             bad: ["nightmare", "executioner", "nemesis", "mastermind", "houndmaster"]
         }
     },
@@ -477,8 +483,8 @@ const questionsData = [
         ],
         groups: {
             good: ["hillbilly", "hag", "cannibal", "clown", "legion", "plague", "blight", "nemesis", "artist", "onryo", "cenobite", "deathslinger", "demogorgon", "shape", "xenomorph"],
-            medium: ["trapper", "nurse", "pig", "spirit", "trickster", "knight", "doctor", "ghostface", "good_guy", "nightmare", "twins", "lich", "dark_lord", "houndmaster", "animatronic"],
-            bad: ["wraith", "huntress", "oni", "executioner", "mastermind", "singularity", "skull_merchant", "dredge"]
+            medium: ["trapper", "nurse", "pig", "spirit", "trickster", "knight", "doctor", "ghostface", "good_guy", "nightmare", "twins", "lich", "dark_lord", "houndmaster", "animatronic", "first"],
+            bad: ["wraith", "huntress", "oni", "executioner", "mastermind", "singularity", "skull_merchant", "dredge", "slasher", "unknown"]
         }
     },
     {
@@ -492,11 +498,11 @@ const questionsData = [
             { text: "I don’t have a preference.", points: { setup: 100, stealth: 100, chaser: 100, ranged: 100, mix: 100 } }
         ],
         groups: {
-            chaser: ["hillbilly", "nurse", "cannibal", "clown", "spirit", "legion", "oni", "blight", "mastermind", "good_guy", "lich", "dark_lord"],
+            chaser: ["hillbilly", "nurse", "cannibal", "clown", "spirit", "legion", "oni", "blight", "mastermind", "good_guy", "lich", "dark_lord", "first", "slasher"],
             mix: ["doctor", "nightmare", "pig", "plague", "demogorgon", "executioner", "twins", "nemesis", "cenobite", "dredge", "knight", "xenomorph", "singularity", "onryo", "lich", "dark_lord", "houndmaster", "animatronic"],
-            ranged: ["huntress", "deathslinger", "trickster", "artist", "animatronic"],
-            stealth: ["wraith", "shape", "ghostface", "animatronic"],
-            setup: ["trapper", "hag", "skull_merchant", "houndmaster"],
+            ranged: ["huntress", "deathslinger", "trickster", "artist", "animatronic", "first", "slasher", "unknown"],
+            stealth: ["wraith", "shape", "ghostface", "animatronic", "first", "slasher"],
+            setup: ["trapper", "hag", "skull_merchant", "houndmaster", "unknown"],
             shape: ["shape"],
             pig: ["pig"],
             deathslinger: ["deathslinger"],
@@ -527,11 +533,11 @@ const questionsData = [
             { text: "I don’t have a secondary playstyle.", points: { setup: 50, stealth: 50, chaser: 50, ranged: 50, mix: 50 } }
         ],
         groups: {
-            chaser: ["hillbilly", "nurse", "cannibal", "clown", "spirit", "legion", "oni", "blight", "mastermind", "good_guy", "lich"],
-            mix: ["doctor", "nightmare", "pig", "plague", "demogorgon", "executioner", "twins", "nemesis", "cenobite", "dredge", "knight", "xenomorph", "singularity", "onryo"],
-            ranged: ["huntress", "deathslinger", "trickster", "artist", "lich", "dark_lord", "animatronic"],
-            stealth: ["wraith", "shape", "ghostface", "dark_lord", "animatronic"],
-            setup: ["trapper", "hag", "skull_merchant", "houndmaster"],
+            chaser: ["hillbilly", "nurse", "cannibal", "clown", "spirit", "legion", "oni", "blight", "mastermind", "good_guy", "lich", "slasher"],
+            mix: ["doctor", "nightmare", "pig", "plague", "demogorgon", "executioner", "twins", "nemesis", "cenobite", "dredge", "knight", "xenomorph", "singularity", "onryo", "first"],
+            ranged: ["huntress", "deathslinger", "trickster", "artist", "lich", "dark_lord", "animatronic", "unknown"],
+            stealth: ["wraith", "shape", "ghostface", "dark_lord", "animatronic", "first", "slasher"],
+            setup: ["trapper", "hag", "skull_merchant", "houndmaster", "unknown"],
             shape: ["shape"],
             pig: ["pig"],
             deathslinger: ["deathslinger"],
@@ -666,6 +672,21 @@ function calculateScores() {
     return sortedKillers.filter(k => k.available === true);
 }
 
+function buildPlayTipsMarkup(tips) {
+    if (!Array.isArray(tips) || tips.length === 0) {
+        return '';
+    }
+
+    const tipItems = tips.map(tip => `<li style="margin-bottom: 4px;">${tip}</li>`).join('');
+
+    return `
+        <div style="margin-top: 12px; padding: 10px 12px; border-left: 2px solid #8d1ed2; background: rgba(0, 0, 0, 0.25); border-radius: 4px;">
+            <div style="font-weight: 700; color: #f4d35e; margin-bottom: 6px;">Play tips</div>
+            <ul style="margin: 0; padding-left: 18px; color: #e8e0c3;">${tipItems}</ul>
+        </div>
+    `;
+}
+
 function showResults() {
     const results = calculateScores();
 
@@ -718,6 +739,8 @@ function showResults() {
             <div style="margin-top: 10px; max-width: 600px; color: #ddd; text-shadow: 1px 1px 2px black;">
                 ${k.description}
             </div>
+
+            ${buildPlayTipsMarkup(k.play_tips)}
             
             <div style="margin-top: 10px;">
                 ${k.dlc ? '<span class="tag" style="background: #3498db; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-right: 5px;">DLC</span>' : ''}
