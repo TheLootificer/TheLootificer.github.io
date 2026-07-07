@@ -434,9 +434,9 @@ const questionsData = [
             { text: "I don’t mind either way.", points: { standard: 75, mixed: 75, unique: 75 } }
         ],
         groups: {
-            standard: ["trapper", "wraith", "shape", "doctor", "cannibal", "nightmare", "pig", "clown", "legion", "ghostface", "demogorgon", "oni", "executioner", "nemesis", "onryo", "knight"],
+            standard: ["trapper", "wraith", "shape", "doctor", "cannibal", "nightmare", "pig", "clown", "legion", "ghostface", "demogorgon", "oni", "executioner", "nemesis", "onryo"],
             unique: ["nurse", "huntress", "hag", "spirit", "singularity", "good_guy", "lich", "houndmaster", "first"],
-            mixed: ["hillbilly", "plague", "deathslinger", "blight", "twins", "cenobite", "artist", "dredge", "mastermind", "skull_merchant", "xenomorph", "trickster", "dark_lord", "animatronic", "slasher", "unknown"]
+            mixed: ["hillbilly", "plague", "deathslinger", "blight", "twins", "knight", "cenobite", "artist", "dredge", "mastermind", "skull_merchant", "xenomorph", "trickster", "dark_lord", "animatronic", "slasher", "unknown"]
         }
     },
     {
