@@ -15,6 +15,12 @@ const killersData = {
         dlc: false,
         licensed: false,
         available: true,
+        play_tips: [
+            "B I N G   B O N G! With the purple uncloak speed add-on, if you touch the survivor before uncloaking, You can always hit them!",
+            "You can fake cloak by 99% his cloak and let go, this will usually catch survivors off guard and make them panic!",
+            "Movement speed is Wraith's best tool! Map Traversal, Lunge Distance, and Chase potential! Making him very consistent and very strong in the right hands!",
+            "If you combine Shadow Dance (Break Speed) with The Serpent (Uncloak after breaking), you can get a LOT of free hits!",
+        ],
         background: "backgrounds/storeBackground_WR.png"
     },
     hillbilly: {
@@ -105,6 +111,12 @@ const killersData = {
         dlc: true,
         licensed: false,
         available: true,
+        play_tips: [
+            "If you fully charge his yellow bottles, by the time you get to the cloud, the haste effect will be active! Free Map Traversal and Chase potential!",
+            "Use his Yellow bottles while picking up a survivor or reloading to get back into action faster!",
+            "Remember, you can slow a survivor with a purple bottle and speed yourself up with a yellow bottle, but don't put them in the same spot, the gas will cancel out!",
+            "When played right, Clown can be very opressive in chase, and you get a lot of free hits if you can place his bottles well!",
+        ],
         background: "backgrounds/storeBackground_GK.png"
     },
     spirit: {
@@ -222,6 +234,12 @@ const killersData = {
         dlc: true,
         licensed: true,
         available: false,
+        play_tips: [
+            "T H E   B O X! Always try to interupt the Survivor solving it, teleporting acts like they solved it, Only teleport if you have to!",
+            "When using his chains try to aim low, so if you miss you hit the ground and reset faster!",
+            "While first learning, try to avoid using Chain Speed add-ons, they make it harder to learn to control them!",
+            "Need to check the map? Use the chains to check gens and other objectives without having to get all the way there!",
+        ],
         background: "backgrounds/K25_storeBackground.png"
     },
     artist: {
@@ -249,6 +267,12 @@ const killersData = {
         dlc: true,
         licensed: false,
         available: true,
+        play_tips: [
+            "Dredge's power is very strong in chase, but it's also very easy to make a mistake. Don't be a afraid to use his power, you can only learn by making mistakes!",
+            "During Nightfall, your power comes back faster and gives a lot of info, This is your time to shine! (Pun intended)",
+            "Dredge's ability to teleport between lockers is very strong, but it can also be a double edged sword. Teleporting to objectives or survivors can be very strong, but almost never do it in chase!",
+            "Dredge is very loud and very tall, so a lot of mind games don't work, or so survivors think... With his remanant ANY 50/50 can be a 100/0 if you play it right!",
+        ],
         background: "backgrounds/K28_storeBackground.png"
     },
     mastermind: {
@@ -345,6 +369,12 @@ const killersData = {
         dlc: true,
         licensed: false,
         available: true,
+        play_tips: [
+            "Houndmaster requires a lot of practice and good precision, take things slow and you'll get the hang of it!",
+            "Search Mode is great, free information and a speed boost, And if you use it well, you can even use it in chase to get a surprise speed boost!",
+            "When Snug is biting a survivor you have plenty of time to get to them, including time to vault a window or break a pallet, so don't panic!",
+            "If you hit a survivor with snug as they are vaulting a window, they take a full health state instead of being grabbed! Timing is key!",
+        ],
         background: "backgrounds/T_UI_K38_storeBackground.png"
     },
     ghoul: {
@@ -473,18 +503,6 @@ const questionsData = [
             strong: ["shape", "hag", "doctor", "plague", "blight", "huntress", "spirit", "cenobite", "animatronic"],
             medium: ["trapper", "wraith", "pig", "clown", "legion", "demogorgon", "oni", "twins", "trickster", "hillbilly", "deathslinger", "artist", "onryo", "ghostface", "dredge", "knight", "skull_merchant", "nurse", "cannibal", "singularity", "xenomorph", "good_guy", "unknown", "lich", "dark_lord", "first", "slasher"],
             bad: ["nightmare", "executioner", "nemesis", "mastermind", "houndmaster"]
-        }
-    },
-    {
-        text: "When it comes to teachable perks...",
-        answers: [
-            { text: "I would really prefer a Killer that unlocks powerful teachables.", points: { good: 75, medium: 25 } },
-            { text: "I don’t care about their teachables.", points: { good: 25, medium: 25, bad: 25 } }
-        ],
-        groups: {
-            good: ["hillbilly", "hag", "cannibal", "clown", "legion", "plague", "blight", "nemesis", "artist", "onryo", "cenobite", "deathslinger", "demogorgon", "shape", "xenomorph"],
-            medium: ["trapper", "nurse", "pig", "spirit", "trickster", "knight", "doctor", "ghostface", "good_guy", "nightmare", "twins", "lich", "dark_lord", "houndmaster", "animatronic", "first"],
-            bad: ["wraith", "huntress", "oni", "executioner", "mastermind", "singularity", "skull_merchant", "dredge", "slasher", "unknown"]
         }
     },
     {
@@ -733,21 +751,23 @@ function showResults() {
         `;
 
         li.innerHTML = `
-            <div style="display: flex; justify-content: space-between; align-items: baseline;">
-                <h3 style="margin: 0; font-family: HeaderFont; font-size: 1.8rem; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">${k.name}</h3>
-                <span style="font-weight: bold; color: #8d1ed2; font-size: 1.2rem; background: rgba(0,0,0,0.6); padding: 5px 10px; border-radius: 4px;">${k.score} pts</span>
-            </div>
-            
-            <div style="margin-top: 10px; max-width: 600px; color: #ddd; text-shadow: 1px 1px 2px black;">
-                ${k.description}
-            </div>
+            <div style="background: rgba(12, 12, 12, 0.72); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 14px 16px; backdrop-filter: blur(2px);">
+                <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                    <h3 style="margin: 0; font-family: HeaderFont; font-size: 1.8rem; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">${k.name}</h3>
+                    <span style="font-weight: bold; color: #8d1ed2; font-size: 1.2rem; background: rgba(0,0,0,0.6); padding: 5px 10px; border-radius: 4px;">${k.score} pts</span>
+                </div>
+                
+                <div style="margin-top: 10px; max-width: 600px; color: #ddd; text-shadow: 1px 1px 2px black;">
+                    ${k.description}
+                </div>
 
-            ${buildPlayTipsMarkup(k.play_tips)}
-            
-            <div style="margin-top: 10px;">
-                ${k.dlc ? '<span class="tag" style="background: #3498db; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-right: 5px;">DLC</span>' : ''}
-                ${k.licensed ? '<span class="tag" style="background: #f1c40f; color: black; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem;">Licensed</span>' : ''}
-                <a href="${k.wiki_link}" target="_blank" style="float: right; color: #8d1ed2; text-decoration: none; font-weight: bold; background: rgba(0,0,0,0.6); padding: 5px;">Wiki &rarr;</a>
+                ${buildPlayTipsMarkup(k.play_tips)}
+                
+                <div style="margin-top: 10px;">
+                    ${k.dlc ? '<span class="tag" style="background: #3498db; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-right: 5px;">DLC</span>' : ''}
+                    ${k.licensed ? '<span class="tag" style="background: #f1c40f; color: black; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem;">Licensed</span>' : ''}
+                    <a href="${k.wiki_link}" target="_blank" style="float: right; color: #8d1ed2; text-decoration: none; font-weight: bold; background: rgba(0,0,0,0.6); padding: 5px;">Wiki &rarr;</a>
+                </div>
             </div>
         `;
         list.appendChild(li);
